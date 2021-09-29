@@ -17,7 +17,7 @@ Examples:
 * Detect a synchronous HTTP call between the time the DB connection is gotten from the data source and closed
 * ...
 
-:bulb: ***You can use this feature during development or for helping you to a do a performance diagnostic audit.***
+:bulb: *You can use this feature during development or for a performance diagnostic audit of the application.*
 
 ###  Automatically generate QuickPerf and functional non-regression tests
 
