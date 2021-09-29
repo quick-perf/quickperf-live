@@ -10,7 +10,12 @@ _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 
 ## Why using _QuickPerf Live_?
 ### Evaluate performance-related properties
-Examples: long database queries, heap allocation, n+1 select or the detection of a synchronous HTTP call between the time the DB connection is gotten from the data source and closed
+Examples: 
+* Detect long database queries 
+* Detect high heap allocation
+* Detect n+1 select 
+* Detect a synchronous HTTP call between the time the DB connection is gotten from the data source and closed
+* ...
 
 :bulb: ***You can use this feature during development or for helping you to a do a performance diagnostic audit.***
 
@@ -82,7 +87,6 @@ quickperf:
         java-folder-path: "C:\\Users\\MyUser\\IdeaProjects\\quickperf-live-demo\\src\\test\\java"
         resource-folder-path: "C:\\Users\\MyUser\\IdeaProjects\\quickperf-live-demo\\src\\test\\resources"
 ```
-
 The configuration can be updated after the application startup with MBeans:
 
 ![](./doc/MBeans.JPG)
