@@ -70,7 +70,7 @@ To have the results on application logs:
 ```properties
 logging.level.org.quickperf.*=INFO
 ```
-You have also the possibility to implement custom exports.
+You also have the possibility to implement custom exports.
 To do this, create Spring beans implementing ```QuickPerfHttpCallInfoWriter``` and ```QuickPerfHttpCallWarningWriter``` interfaces.
 
 ### Configure the diagnostic of performance-related properties and the test generation
