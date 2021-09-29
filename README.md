@@ -9,7 +9,7 @@ _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 ⚠ _We do not recommend enabling the tool in a production environment today._
 
 ## Why using _QuickPerf Live_?
-### Evaluate performance-related properties
+### Diagnose performance-related properties
 Examples: 
 * Detect long database queries 
 * Detect high heap allocation
