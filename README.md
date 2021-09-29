@@ -46,17 +46,18 @@ mvn clean install
 ```
 
 ### Enable QuickPerf Live
-From a _.properties_ file:
-
-```properties
-quickperf.enabled=true
-```
 
 From a _yaml_ file:
 
 ```yaml
 quickperf:
   enabled: true
+```
+
+From a _.properties_ file:
+
+```properties
+quickperf.enabled=true
 ```
 
 ### Export the diagnostic of performance-related properties
@@ -70,9 +71,9 @@ To do this, create Spring beans implementing ```QuickPerfHttpCallInfoWriter``` a
 ### Configure the diagnostic of performance-related properties and the test generation
 The configuration can be done from properties.
 
-:point_right: [A _.properties_ file example](./spring-boot-2/src/test/resources/quickperf-properties-test.properties)
-
 :point_right: [A _yaml_ file example](./spring-boot-2/src/test/resources/quickperf-properties-test.yml)
+
+:point_right: [A _.properties_ file example](./spring-boot-2/src/test/resources/quickperf-properties-test.properties)
 
 💡 Test generation tip: if you use the library in your local environment, configure the generation in ```src/test/java``` and ```src/test/resources```. So that, you can execute the generated tests in your IDE just after the generation!
 ```yaml
