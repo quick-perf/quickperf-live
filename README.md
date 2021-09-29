@@ -12,7 +12,7 @@ _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 ### Evaluate and investigate performance-related properties
 Examples: long database queries, heap allocation, n+1 select or the detection of a synchronous HTTP call between the time the DB connection is gotten from the data source and closed
 
-_You can use this feature during development or for helping you to a do a performance diagnostic audit._
+:bulb: ***You can use this feature during development or for helping you to a do a performance diagnostic audit.***
 
 ###  Automatically generate QuickPerf and functional non-regression tests
 
@@ -22,7 +22,7 @@ Today, for GET HTTP calls done with a Spring RestTemplate, the project allows ge
 2) Ensuring a non-regression on the functionnal behavior
 It works for both an HTML or a JSON response. The project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current JSON response with the expected one.
 
-:bulb: The generated tests executes a SQL file produced with the help of [**SQL test data generator library**](https://github.com/quick-perf/sql-test-data-generator#sql-test-data-generator). 
+The generated tests executes a SQL file produced with the help of [**SQL test data generator library**](https://github.com/quick-perf/sql-test-data-generator#sql-test-data-generator). 
 
 ## Configuration
 ### Maven dependency
