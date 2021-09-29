@@ -1,0 +1,30 @@
+quickperf:
+    enabled: true
+    jvm:
+        heap-allocation:
+            measured: true
+            threshold:
+                detected: true
+                value-in-bytes: 100 000
+    database:
+        n+1:
+            detected: true
+            threshold: 20
+        connection:
+            profiled: true
+        sql:
+            displayed: true
+            displayed.selected-columns: true
+            execution-time:
+                detected: true
+                thresholdInMs: 50
+    synchronous-http-call:
+        between-db-connection-gotten-and-closed:
+            detection: true
+    test-generation:
+        junit4:
+            enabled: true
+        junit5:
+            enabled: true
+        java-folder-path: C:\java-class-folder
+        resource-folder-path: C:\resource-folder
