@@ -6,7 +6,7 @@
 
 _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 
-⚠ _We do not recommend enabling the library in a production environment today._
+⚠ _We do not recommend enabling the tool in a production environment today._
 
 ## Why using _QuickPerf Live_?
 ### Evaluate and investigate performance-related properties
