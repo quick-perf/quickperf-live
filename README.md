@@ -17,7 +17,7 @@ Examples: long database queries, heap allocation, n+1 select or the detection of
 ###  Automatically generate QuickPerf and functional non-regression tests
 
 Today, for GET HTTP calls done with a Spring RestTemplate, the project allows generating tests:
-1) Reproducing N+1 select with a non-regression on N+1 select thanks to the [**QuickPerf testing library**](https://github.com/quick-perf/quickperf/Readme.md).
+1) Reproducing N+1 select with a non-regression on N+1 select thanks to the [**QuickPerf testing library**](https://github.com/quick-perf/quickperf).
 
 2) Ensuring a non-regression on the functionnal behavior
 It works for both an HTML or a JSON response. The project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current JSON response with the expected one.
