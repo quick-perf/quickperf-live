@@ -53,7 +53,7 @@
 
         <dependency>
             <groupId>org.quickperf</groupId>
-            <artifactId>quick-perf-springboot2-web-starter</artifactId>
+            <artifactId>quick-perf-live-springboot2</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
 

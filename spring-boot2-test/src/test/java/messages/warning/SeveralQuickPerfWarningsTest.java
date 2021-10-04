@@ -26,7 +26,6 @@ public class SeveralQuickPerfWarningsTest extends TestQuickPerfMessages {
     should_display_several_quick_perf_warnings() {
 
         // GIVEN
-        databaseHttpConfig.setSynchronousHttpCallDuringDbCommitDetected(true);
         databaseHttpConfig.setSynchronousHttpCallBetweenDbConnectionGottenAndClosedDetected(true);
         databaseConfig.setSqlExecutionTimeDetected(true);
         databaseConfig.setSqlExecutionTimeThresholdInMilliseconds(0);
@@ -45,7 +44,6 @@ public class SeveralQuickPerfWarningsTest extends TestQuickPerfMessages {
                 )
                 .hasAMessageContaining(
                         "\t* [WARNING] Synchronous HTTP call between the time the DB connection is gotten from the data source and closed" + lineSeparator() +
-                        "\t* [WARNING] Synchronous HTTP call during database commit" + lineSeparator() +
                         "\t* Synchronous HTTP calls" + lineSeparator() +
                         "\t\t* GET 200 http://localhost:");
 
