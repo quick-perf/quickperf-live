@@ -1,8 +1,19 @@
 # QuickPerf _Live_
-<a href="https://github.com/quick-perf/quickperf-live/blob/master/LICENSE.txt">
-    <img src="https://img.shields.io/badge/license-Apache2-blue.svg"
-         alt = "License">
-</a>
+<p>
+    <a href="https://github.com/quick-perf/quickperf-live/blob/master/LICENSE.txt">
+        <img src="https://img.shields.io/badge/license-Apache2-blue.svg"
+             alt = "License">
+    </a>
+    &nbsp;&nbsp;
+    <a href="https://github.com/quick-perf/quickperf-live/actions?query=workflow%3ACI">
+    <img src="https://img.shields.io/github/workflow/status/quick-perf/quickperf-live/CI"
+         alt = "Build Status">
+    </a>
+    &nbsp;&nbsp;
+   <a href="https://twitter.com/quickperf">       
+        <img alt="@QuickPerf" src="https://img.shields.io/twitter/url?label=Twitter&style=social&url=https%3A%2F%2Ftwitter.com%2Fquickperf">
+   </a>
+</p>
 
 _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 
