@@ -5,10 +5,17 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <description>A project for web applications developed with Spring Boot to diagnose
+    performance-related properties (heap allocation, length of database queries, ...)
+        and to generate QuickPerf and functional non-regression tests.</description>
+
+    <url>https://github.com/quick-perf/quickperf-live</url>
+
     <groupId>org.quickperf</groupId>
     <artifactId>quick-perf-live</artifactId>
     <version>0.1-SNAPSHOT</version>
 
+    <name>QuickPerf live</name>
     <inceptionYear>2021</inceptionYear>
 
     <packaging>pom</packaging>
@@ -22,11 +29,6 @@
         <license.dir>${basedir}</license.dir>
         <currentYear>2021</currentYear>
     </properties>
-
-    <modules>
-        <module>spring-boot-2</module>
-        <module>spring-boot2-test</module>
-    </modules>
 
     <build>
         <plugins>
@@ -97,6 +99,103 @@
         </plugins>
     </build>
 
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/quick-perf/quickperf-live</url>
+    </issueManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <modules>
+                <!--https://stackoverflow.com/questions/32618392/nexus-staging-maven-plugin-refuse-to-upload-after-deferred-deployment
+                -->
+                <module>spring-boot-2</module>
+            </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>gpg</executable>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <failOnError>true</failOnError>
+                            <show>public</show>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>3.0.0-M1</version>
+                        <configuration>
+                            <allowTimestampedSnapshots>true</allowTimestampedSnapshots> <!--Because of junit4-spring-base-tests-->
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <useReleaseProfile>false</useReleaseProfile>
+                            <releaseProfiles>release</releaseProfiles>
+                            <goals>deploy</goals>
+                            <tagNameFormat>release-@{project.version}</tagNameFormat>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
     <repositories>
         <repository>
             <id>maven-snapshots</id>
@@ -110,6 +209,13 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <scm>
+        <connection>scm:git:https://github.com/quick-perf/quickperf-live.git</connection>
+        <developerConnection>scm:git:git@github.com:quick-perf/quickperf-live.git</developerConnection>
+        <url>https://github.com/quick-perf/quickperf-live</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <licenses>
         <license>
