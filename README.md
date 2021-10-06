@@ -42,23 +42,37 @@ The generated tests execute a SQL file produced with the help of [**SQL test dat
 
 ## Configuration
 ### Maven dependency
-The library is not deployed on Maven central yet.
-To use it:
-1) Clone the project
-```bash
-git clone https://github.com/quick-perf/quickperf-live.git
-```
-2) Build the library
-```bash
-mvn clean install
-```
-3) Add the library to your project
+
 ```xml
 <dependency>
     <groupId>org.quickperf</groupId>
-    <artifactId>quick-perf-live</artifactId>
+    <artifactId>quick-perf-live-springboot2</artifactId>
     <version>0.1-SNAPSHOT</version>
 </dependency>
+```
+Maven central contains a snapshot version. To use it, your projects need to access to Maven central snapshots:
+```xml
+    <repositories>
+        <repository>
+            <id>maven-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+```
+
+You can also build the library:
+```bash
+git clone https://github.com/quick-perf/quickperf-live.git
+```
+```bash
+mvn clean install
 ```
 
 ### Enable QuickPerf Live
