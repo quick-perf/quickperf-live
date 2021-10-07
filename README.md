@@ -1,4 +1,4 @@
-# QuickPerf _Live_
+# QuickPerf Live
 <p>
     <a href="https://github.com/quick-perf/quickperf-live/blob/master/LICENSE.txt">
         <img src="https://img.shields.io/badge/license-Apache2-blue.svg"
@@ -19,7 +19,7 @@ _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 
 ⚠ _We do not recommend enabling the tool in a production environment today._
 
-## Why using _QuickPerf Live_?
+## Why use _QuickPerf Live_?
 ### Diagnose performance-related properties
 Examples: 
 * Detect long database queries 
