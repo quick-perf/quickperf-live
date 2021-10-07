@@ -109,8 +109,8 @@ The configuration can be done from properties.
 ```yaml
 quickperf:
     test-generation:
-        java-folder-path: "C:\\Users\\MyUser\\IdeaProjects\\quickperf-live-demo\\src\\test\\java"
-        resource-folder-path: "C:\\Users\\MyUser\\IdeaProjects\\quickperf-live-demo\\src\\test\\resources"
+        java-folder-path: ".\\src\\test\\java"
+        resource-folder-path: ".\\src\\test\\resources"
 ```
 The configuration can be updated after the application startup with MBeans:
 
