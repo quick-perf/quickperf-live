@@ -3,7 +3,7 @@
 <div>
 <blockquote>
     <p><strong>A tool to ease your work as a developer</strong>, not only regarding performance.
-        <br/><em><strong>It generates functional non-regression tests, diagnoses performance, and generates non-regression tests on performance-related properties.</em></strong></p>
+        <br/><em><strong>It generates functional non-regression tests</strong> to help you to work on legacy applications<strong>, diagnoses performance, and generates non-regression tests on performance-related properties.</em></strong></p>
 </blockquote>
 </div>
 
