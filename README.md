@@ -1,5 +1,23 @@
-# QuickPerf Live
+# QuickPerf live
+
+<div>
+<blockquote>
+    <p><strong>A tool to ease your work as a developer</strong>, not only regarding performance.
+        <br/><em><strong>It generates functional non-regression tests, diagnoses performance, and generates non-regression tests on performance-related properties.</em></strong></p>
+</blockquote>
+</div>
+
+---
+
 <p>
+    <a  href="https://www.youtube.com/watch?v=4Sbvaewrm6A&t=913s">
+    <strong>📺 QuickPerf live demo</strong> (in French)
+    </a>
+    &nbsp;&nbsp;
+   <a href="https://twitter.com/quickperf">       
+        <img alt="@QuickPerf" src="https://img.shields.io/twitter/url?label=Twitter&style=social&url=https%3A%2F%2Ftwitter.com%2Fquickperf">
+   </a>
+    &nbsp;&nbsp;
     <a href="https://github.com/quick-perf/quickperf-live/blob/master/LICENSE.txt">
         <img src="https://img.shields.io/badge/license-Apache2-blue.svg"
              alt = "License">
@@ -9,17 +27,16 @@
     <img src="https://img.shields.io/github/workflow/status/quick-perf/quickperf-live/CI"
          alt = "Build Status">
     </a>
-    &nbsp;&nbsp;
-   <a href="https://twitter.com/quickperf">       
-        <img alt="@QuickPerf" src="https://img.shields.io/twitter/url?label=Twitter&style=social&url=https%3A%2F%2Ftwitter.com%2Fquickperf">
-   </a>
 </p>
+
+---
 
 _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 
 ⚠ _We do not recommend enabling the tool in a production environment today._
 
-## Why use _QuickPerf Live_?
+## Why use _QuickPerf live_?
+
 ### Diagnose performance-related properties
 Examples: 
 * Detect long database queries 
@@ -75,7 +92,7 @@ git clone https://github.com/quick-perf/quickperf-live.git
 mvn clean install
 ```
 
-### Enable QuickPerf Live
+### Enable QuickPerf live
 
 From a _yaml_ file:
 
