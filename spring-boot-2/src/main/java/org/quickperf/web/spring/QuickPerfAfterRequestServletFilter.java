@@ -364,7 +364,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
         if (databaseHttpConfig.isSynchronousHttpCallBetweenDbConnectionGottenAndClosedDetected()
                 && httpCallBetweenConnectionGetAndClosePattern.isEmpty()) {
-            warnLogMessage.append(lineSeparator() + "\t* [WARNING] Synchronous HTTP call between the time the DB connection is gotten from the data source and closed");
+            warnLogMessage.append(lineSeparator() + "\t* [WARNING] Synchronous HTTP call while the application maintains the DB connection (between the time the DB connection is gotten from the data source and closed)");
         }
 
         if (httpCallBetweenConnectionGetAndClosePattern.isEmpty()

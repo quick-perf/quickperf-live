@@ -38,7 +38,7 @@ public class SynchronousHttpBetweenDbConnectionGottenAndClosedTest extends TestQ
         assertThat(quickPerfWarnings)
                 .hasAMessageContaining(
                         "GET 200 http://localhost/http-call-between-connection-gotten-and-closed" + lineSeparator() +
-                                "\t* [WARNING] Synchronous HTTP call between the time the DB connection is gotten from the data source and closed" + lineSeparator() +
+                                "\t* [WARNING] Synchronous HTTP call while the application maintains the DB connection (between the time the DB connection is gotten from the data source and closed)" + lineSeparator() +
                                 "\t* Synchronous HTTP calls" + lineSeparator() +
                                 "\t\t* GET 200 http://localhost:");
 

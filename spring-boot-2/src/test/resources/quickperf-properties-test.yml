@@ -19,8 +19,8 @@ quickperf:
                 detected: true
                 thresholdInMs: 50
     synchronous-http-call:
-        between-db-connection-gotten-and-closed:
-            detection: true
+        while-db-connection-maintained:
+            detected: true
     test-generation:
         junit4:
             enabled: true

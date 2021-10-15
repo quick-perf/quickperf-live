@@ -42,7 +42,7 @@ Examples:
 * Detect long database queries 
 * Detect high heap allocation
 * Detect n+1 select 
-* Detect a synchronous HTTP call between the time the DB connection is gotten from the data source and closed
+* Detect a synchronous HTTP call while the application maintains the database connection
 * ...
 
 :bulb: *You can use this feature during development or for a performance diagnostic audit of the application.*

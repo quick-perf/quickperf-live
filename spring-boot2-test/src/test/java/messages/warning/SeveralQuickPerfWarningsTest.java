@@ -43,7 +43,7 @@ public class SeveralQuickPerfWarningsTest extends TestQuickPerfMessages {
                         "\t* [WARNING] SQL queries duration greater than"
                 )
                 .hasAMessageContaining(
-                        "\t* [WARNING] Synchronous HTTP call between the time the DB connection is gotten from the data source and closed" + lineSeparator() +
+                        "\t* [WARNING] Synchronous HTTP call while the application maintains the DB connection (between the time the DB connection is gotten from the data source and closed)" + lineSeparator() +
                         "\t* Synchronous HTTP calls" + lineSeparator() +
                         "\t\t* GET 200 http://localhost:");
 

@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
         description="QuickPerf Live MBeans")
 public class DatabaseHttpConfig {
 
-    @Value("${quickperf.synchronous-http-call.between-db-connection-gotten-and-closed.detection:false}")
+    @Value("${quickperf.synchronous-http-call.while-db-connection-maintained.detected:false}")
     private boolean synchronousHttpCallBetweenDbConnectionGottenAndClosedDetected;
 
     @ManagedOperation
