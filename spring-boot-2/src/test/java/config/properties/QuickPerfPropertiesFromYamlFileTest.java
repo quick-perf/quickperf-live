@@ -100,8 +100,8 @@ public class QuickPerfPropertiesFromYamlFileTest {
             TestGenerationConfig testGenerationConfig = context.getBean(TestGenerationConfig.class);
             assertThat(testGenerationConfig.isJunit4GenerationEnabled()).isTrue();
             assertThat(testGenerationConfig.isJunit5GenerationEnabled()).isTrue();
-            assertThat(testGenerationConfig.getTestResourceFolder()).isEqualTo("C:\\resource-folder");
-            assertThat(testGenerationConfig.getJavaClassFolder()).isEqualTo("C:\\java-class-folder");
+            assertThat(testGenerationConfig.getTestResourceFolder()).isEqualTo(".\\src\\test\\resources");
+            assertThat(testGenerationConfig.getJavaClassFolder()).isEqualTo(".\\src\\test\\java");
 
                 }
         );
