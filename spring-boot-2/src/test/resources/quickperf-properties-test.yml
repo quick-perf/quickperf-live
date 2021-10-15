@@ -26,5 +26,5 @@ quickperf:
             enabled: true
         junit5:
             enabled: true
-        java-folder-path: C:\java-class-folder
-        resource-folder-path: C:\resource-folder
+        java-folder-path: ".\\src\\test\\java"
+        resource-folder-path: ".\\src\\test\\resources"
