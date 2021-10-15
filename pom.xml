@@ -106,6 +106,16 @@
 
     <profiles>
         <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>spring-boot-2</module>
+                <module>spring-boot2-test</module>
+            </modules>
+        </profile>
+        <profile>
             <id>release</id>
             <modules>
                 <!--https://stackoverflow.com/questions/32618392/nexus-staging-maven-plugin-refuse-to-upload-after-deferred-deployment
