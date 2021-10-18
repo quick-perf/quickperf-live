@@ -239,7 +239,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
             LongDbRequestsListener longDbRequestsListener = SqlRecorderRegistry.INSTANCE.getSqlRecorderOfType(LongDbRequestsListener.class);
             SqlExecutions sqlExecutionsGreaterOrEqualToThreshold = longDbRequestsListener.getSqlExecutionsGreaterOrEqualToThreshold();
             if (!sqlExecutionsGreaterOrEqualToThreshold.isEmpty()) {
-                warnLogMessage.append(lineSeparator() + "\t* [WARNING] SQL queries duration greater than " + sqlExecutionThresholdInMilliseconds + " ms");
+                warnLogMessage.append(lineSeparator() + "\t* [WARNING] At least one SQL query has an execution time greater than " + sqlExecutionThresholdInMilliseconds + " ms");
                 String longQueriesAsString = sqlExecutionsGreaterOrEqualToThreshold.toString();
                 String longQueriesAsStringWithoutThreeLastLineBreaks = longQueriesAsString.substring(0, longQueriesAsString.length() - 3);
                 warnLogMessage.append(lineSeparator() + longQueriesAsStringWithoutThreeLastLineBreaks);

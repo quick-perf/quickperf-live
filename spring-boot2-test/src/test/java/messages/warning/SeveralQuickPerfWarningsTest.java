@@ -40,7 +40,7 @@ public class SeveralQuickPerfWarningsTest extends TestQuickPerfMessages {
         assertThat(quickPerfWarnings)
                 .hasAMessageContaining(
                         "POST 200 http://localhost/synchronous-http-call-during-db-connection" + lineSeparator() +
-                        "\t* [WARNING] SQL queries duration greater than"
+                        "\t* [WARNING] At least one SQL query has an execution time greater than"
                 )
                 .hasAMessageContaining(
                         "\t* [WARNING] Synchronous HTTP call while the application maintains the DB connection (between the time the DB connection is gotten from the data source and closed)" + lineSeparator() +
