@@ -18,7 +18,7 @@ import org.apache.commons.logging.LogFactory;
 import org.quickperf.web.spring.Application;
 import org.quickperf.web.spring.HttpContentType;
 import org.quickperf.web.spring.config.TestGenerationConfig;
-import org.stdg.SqlTestDataGenerator;
+import org.qstd.QuickSqlTestData;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +42,7 @@ public class TestGenerator {
                                       , String content
                                       , TestGenerationConfig testGenerationConfig
                                       , String httpCallReport
-                                      , SqlTestDataGenerator sqlTestDataGenerator
+                                      , QuickSqlTestData quickSqlTestData
                                       , JUnitVersion jUnitVersion) {
 
         String fileNameWithoutExtension = ResourceFileNameGenerator.INSTANCE.buildFileNameWithoutExtension(relativeHttpUrl);
@@ -53,7 +53,7 @@ public class TestGenerator {
         if (!selectQueries.isEmpty()) {
             TestFile sqlFile = SqlScriptFileGenerator.INSTANCE
                     .generate(selectQueries
-                            , sqlTestDataGenerator
+                            , quickSqlTestData
                             , fileNameWithoutExtension);
             sqlFile.writeInto(resourcePath);
             optionalSqlFile = Optional.of(sqlFile);

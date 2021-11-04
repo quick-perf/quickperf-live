@@ -13,8 +13,8 @@
 package org.quickperf.web.spring.testgeneration;
 
 import net.ttddyy.dsproxy.QueryInfo;
-import org.stdg.SqlQuery;
-import org.stdg.SqlTestDataGenerator;
+import org.qstd.SqlQuery;
+import org.qstd.QuickSqlTestData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +26,15 @@ public class SqlScriptFileGenerator {
     private SqlScriptFileGenerator() {
     }
 
-    TestFile generate(List<QueryInfo> selectQueries, SqlTestDataGenerator sqlTestDataGenerator, String fileNameWithoutExtension) {
+    TestFile generate(List<QueryInfo> selectQueries, QuickSqlTestData quickSqlTestData, String fileNameWithoutExtension) {
         String fileName = fileNameWithoutExtension + ".sql";
-        String fileContent = createSqlScriptFile(selectQueries, sqlTestDataGenerator);
+        String fileContent = createSqlScriptFile(selectQueries, quickSqlTestData);
         return new TestFile(fileName, fileContent);
     }
 
-    private String createSqlScriptFile(List<QueryInfo> selectQueries, SqlTestDataGenerator sqlTestDataGenerator) {
+    private String createSqlScriptFile(List<QueryInfo> selectQueries, QuickSqlTestData quickSqlTestData) {
         List<SqlQuery> sqlQueriesForSqlTestDataGenerator = buildQueriesForSqlTestDataGenerator(selectQueries);
-        return sqlTestDataGenerator.generateInsertScriptFor(sqlQueriesForSqlTestDataGenerator);
+        return quickSqlTestData.generateInsertScriptFor(sqlQueriesForSqlTestDataGenerator);
     }
 
     private List<SqlQuery> buildQueriesForSqlTestDataGenerator(List<QueryInfo> selectQueries) {

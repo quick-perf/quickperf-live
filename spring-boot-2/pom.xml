@@ -36,7 +36,7 @@
     <dependencies>
         <dependency>
             <groupId>org.quickperf</groupId>
-            <artifactId>sql-test-data-generator</artifactId>
+            <artifactId>quick-sql-test-data</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

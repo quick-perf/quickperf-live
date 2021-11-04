@@ -55,7 +55,7 @@ Today, for GET HTTP calls done with a Spring RestTemplate, the project allows **
 2) **Ensuring a non-regression on the functional behavior.**
 It works for both  HTML or JSON response. The project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current JSON response with the expected one.
 
-The generated tests execute a SQL file produced with the help of [**SQL test data generator library**](https://github.com/quick-perf/sql-test-data-generator#sql-test-data-generator). 
+The generated tests execute a SQL file produced with the help of [**Quick SQL test data library**](https://github.com/quick-perf/quick-sql-test-data#quick-sql-test-data). 
 
 ## Configuration
 ### Maven dependency

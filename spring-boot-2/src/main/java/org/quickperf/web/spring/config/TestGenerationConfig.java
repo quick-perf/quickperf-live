@@ -18,7 +18,7 @@ import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
-import org.stdg.SqlTestDataGenerator;
+import org.qstd.QuickSqlTestData;
 
 import javax.sql.DataSource;
 
@@ -86,8 +86,8 @@ public class TestGenerationConfig {
 
     // One instantiation to benefit from database metadata caching on several HTTP calls
     @Bean
-    public SqlTestDataGenerator sqlTestDataGenerator(DataSource dataSource) {
-        return SqlTestDataGenerator.buildFrom(dataSource);
+    public QuickSqlTestData sqlTestDataGenerator(DataSource dataSource) {
+        return QuickSqlTestData.buildFrom(dataSource);
     }
 
 }

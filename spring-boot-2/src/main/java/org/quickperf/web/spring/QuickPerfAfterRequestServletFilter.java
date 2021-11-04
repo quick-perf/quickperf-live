@@ -32,7 +32,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.stdg.SqlTestDataGenerator;
+import org.qstd.QuickSqlTestData;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +58,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
     private final TestGenerationConfig testGenerationConfig;
 
-    private final SqlTestDataGenerator sqlTestDataGenerator;
+    private final QuickSqlTestData quickSqlTestData;
 
     private final Set<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters;
 
@@ -74,7 +74,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
             , DatabaseHttpConfig databaseHttpConfig
             , JvmConfig jvmConfig
             , TestGenerationConfig testGenerationConfig
-            , SqlTestDataGenerator sqlTestDataGenerator
+            , QuickSqlTestData quickSqlTestData
             , ApplicationContext context
             , Set<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters
             , Set<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters) {
@@ -82,7 +82,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         this.databaseConfig = databaseConfig;
         this.databaseHttpConfig = databaseHttpConfig;
         this.testGenerationConfig = testGenerationConfig;
-        this.sqlTestDataGenerator = sqlTestDataGenerator;
+        this.quickSqlTestData = quickSqlTestData;
         this.quickPerfHttpCallWarningWriters = quickPerfHttpCallWarningWriters;
         this.quickPerfHttpCallInfoWriters = quickPerfHttpCallInfoWriters;
         logger.debug(this.getClass().getSimpleName() + "is created");
@@ -289,7 +289,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
                                                              , content
                                                              , testGenerationConfig
                                                              , httpCallReport
-                                                             , sqlTestDataGenerator
+                                                             , quickSqlTestData
                                                              , JUnitVersion.VERSION_5
                 );
 
@@ -303,7 +303,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
                                                              , content
                                                              , testGenerationConfig
                                                              , httpCallReport
-                                                             , sqlTestDataGenerator
+                                                             , quickSqlTestData
                                                              , JUnitVersion.VERSION_4
                 );
 
