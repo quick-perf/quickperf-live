@@ -71,13 +71,13 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
     private final JvmConfig jvmConfig;
 
     public QuickPerfAfterRequestServletFilter(DatabaseConfig databaseConfig
-            , DatabaseHttpConfig databaseHttpConfig
-            , JvmConfig jvmConfig
-            , TestGenerationConfig testGenerationConfig
-            , QuickSqlTestData quickSqlTestData
-            , ApplicationContext context
-            , Set<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters
-            , Set<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters) {
+                                            , DatabaseHttpConfig databaseHttpConfig
+                                            , JvmConfig jvmConfig
+                                            , TestGenerationConfig testGenerationConfig
+                                            , QuickSqlTestData quickSqlTestData
+                                            , ApplicationContext context
+                                            , Set<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters
+                                            , Set<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters) {
         this.jvmConfig = jvmConfig;
         this.databaseConfig = databaseConfig;
         this.databaseHttpConfig = databaseHttpConfig;
@@ -109,8 +109,6 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
             problem = t;
         }
 
-        //if (servletResponse.isCommitted()) { // Some test generation tests may fail
-                                               // if we add a isCommitted condition
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
         String contentTypeAsString = httpServletResponse.getContentType();
@@ -127,7 +125,6 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         } finally {
              unregisterListeners();
         }
-        //}
 
         handleProblem(problem);
     }
@@ -135,8 +132,6 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
     private void unregisterListeners() {
         ByteWatcherSingleThreadRegistry.INSTANCE.unregister();
         SqlRecorderRegistry.INSTANCE.clear();
-        // Petclinic bug
-        // ConnectionListenerRegistry.unregister(PerfEventConnectionListener.INSTANCE);
         ConnectionListenerRegistry.INSTANCE.clear();
         SynchronousHttpCallsRegistry.INSTANCE.unregisterHttpCalls();
         PerfEventsRegistry.INSTANCE.unregisterPerfEvents();
@@ -229,8 +224,6 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
             infoReport.append(lineSeparator());
             infoReport.append(profilingConnectionResult);
         }
-
-        //printHttpCall(httpServletRequest, httpServletResponse, warnLogMessage);
 
         List<HttpCall> externalHttpCalls = SynchronousHttpCallsRegistry.INSTANCE.getHttpCalls();
 

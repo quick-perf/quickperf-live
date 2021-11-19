@@ -38,7 +38,7 @@ class JavaTestClassGenerator {
                                                 , expectedResponseFileName
                                                 , httpContentType
                                                 , jUnitVersion);
-        String testClassContent = junit4Junit5TestClassContentGenerator.INSTANCE
+        String testClassContent = Junit4Junit5TestClassContentGenerator.INSTANCE
                 .generate(javaClassGenerationConfig);
 
         String className = ClassNameGenerator.INSTANCE

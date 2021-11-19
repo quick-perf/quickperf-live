@@ -14,7 +14,7 @@ package org.quickperf.web.spring.testgeneration;
 
 import java.util.Optional;
 
-public class junit4Junit5TestClassContentGenerator implements JavaClassGenerator {
+public class Junit4Junit5TestClassContentGenerator implements JavaClassGenerator {
 
     private static final String SPRING_BOOT_APPLICATION_CANONICAL_NAME_PART = "spring_boot_application_canonical_name";
     private static final String SPRING_BOOT_APPLICATION_CLASS_NAME_PART = "spring_boot_application_class_name";
@@ -26,84 +26,68 @@ public class junit4Junit5TestClassContentGenerator implements JavaClassGenerator
     private static final String QUICK_PERF_TEST_ANNOT_IMPORT = "import org.quickperf.junit5.QuickPerfTest;\n";
     private static final String DISABLE_SAME_SELECT_TYPES_WITH_DIFFERENT_PARAM_VALUES_ANNOT_IMPORT = "import org.quickperf.sql.annotation.DisableSameSelectTypesWithDifferentParamValues;\n";
     private static final String QUICK_PERF_TEST_ANNOT = "@QuickPerfTest\n";
-
-    private static final String TEST_CLASS_TEMPLATE
-            //"package ...\n" +
-                    //"\n" +
-            ;
-
     private static final String SQL_SCRIPT_ANNOT = "@Sql(\"/" + SQL_SCRIPT_FILE_TEMPLATE_PART + "\")\n";
-
     private static final String DISABLE_SAME_SELECT_TYPES_WITH_DIFFERENT_PARAM_VALUES_ANNOT = "    " + "@DisableSameSelectTypesWithDifferentParamValues\n";
-
     private static final String JSONCOMPARE_MODE_IMPORT = "import org.skyscreamer.jsonassert.JSONCompareMode;\n";
-
     private static final String ASSERTJ_ASSERT_THAT_IMPORT = "import static org.assertj.core.api.Assertions.assertThat;\n";
-
     private static final String JSON_ASSERT_ASSERT_EQUALS_IMPORT = "import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;\n";
-
     private static final String JUNIT_5_TEST_ANNOT_IMPORT = "import org.junit.jupiter.api.Test;\n";
-
     private static final String SQL_ANNOT_IMPORT = "import org.springframework.test.context.jdbc.Sql;\n";
 
-    static {
-        TEST_CLASS_TEMPLATE =
-                JUNIT_5_TEST_ANNOT_IMPORT +
-                QUICK_PERF_TEST_ANNOT_IMPORT +
-                DISABLE_SAME_SELECT_TYPES_WITH_DIFFERENT_PARAM_VALUES_ANNOT_IMPORT +
-                JSONCOMPARE_MODE_IMPORT +
-                "import org.springframework.beans.factory.annotation.Autowired;\n" +
-                "import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;\n" +
-                "import org.springframework.boot.test.context.SpringBootTest;\n" +
-                "import org.springframework.mock.web.MockHttpServletResponse;\n" +
-                "import " + SPRING_BOOT_APPLICATION_CANONICAL_NAME_PART + ";\n" +
-                SQL_ANNOT_IMPORT +
-                "import org.springframework.test.web.servlet.MockMvc;\n" +
-                "import org.springframework.test.web.servlet.MvcResult;\n" +
-                "\n" +
-                "import java.io.IOException;\n" +
-                "import java.net.URISyntaxException;\n" +
-                "import java.nio.file.Files;\n" +
-                "import java.nio.file.Path;\n" +
-                "import java.nio.file.Paths;\n" +
-                "import java.util.stream.Collectors;\n" +
-                "import java.util.stream.Stream;\n" +
-                "\n" +
-                JSON_ASSERT_ASSERT_EQUALS_IMPORT +
-                ASSERTJ_ASSERT_THAT_IMPORT +
-                "import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;\n" +
-                "import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;\n" +
-                "\n" +
+    private static final String TEST_CLASS_TEMPLATE =
+                    JUNIT_5_TEST_ANNOT_IMPORT +
+                    QUICK_PERF_TEST_ANNOT_IMPORT +
+                    DISABLE_SAME_SELECT_TYPES_WITH_DIFFERENT_PARAM_VALUES_ANNOT_IMPORT +
+                    JSONCOMPARE_MODE_IMPORT +
+                    "import org.springframework.beans.factory.annotation.Autowired;\n" +
+                    "import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;\n" +
+                    "import org.springframework.boot.test.context.SpringBootTest;\n" +
+                    "import org.springframework.mock.web.MockHttpServletResponse;\n" +
+                    "import " + SPRING_BOOT_APPLICATION_CANONICAL_NAME_PART + ";\n" +
+                    SQL_ANNOT_IMPORT +
+                    "import org.springframework.test.web.servlet.MockMvc;\n" +
+                    "import org.springframework.test.web.servlet.MvcResult;\n" +
+                    "\n" +
+                    "import java.io.IOException;\n" +
+                    "import java.net.URISyntaxException;\n" +
+                    "import java.nio.file.Files;\n" +
+                    "import java.nio.file.Path;\n" +
+                    "import java.nio.file.Paths;\n" +
+                    "import java.util.stream.Collectors;\n" +
+                    "import java.util.stream.Stream;\n" +
+                    "\n" +
+                    JSON_ASSERT_ASSERT_EQUALS_IMPORT +
+                    ASSERTJ_ASSERT_THAT_IMPORT +
+                    "import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;\n" +
+                    "import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;\n" +
+                    "\n" +
 
-                "@SpringBootTest(classes = {" + SPRING_BOOT_APPLICATION_CLASS_NAME_PART + ".class})\n" +
-                SQL_SCRIPT_ANNOT +
-                QUICK_PERF_TEST_ANNOT +
-                "@AutoConfigureMockMvc\n" +
-                "public class " + CLASS_NAME_TEMPLATE_PART + " {\n" +
-                "\n" +
-                "    @Autowired\n" +
-                "    private MockMvc mockMvc;\n" +
-                "\n" +
-                DISABLE_SAME_SELECT_TYPES_WITH_DIFFERENT_PARAM_VALUES_ANNOT +
-                "    @Test\n" +
-                "    public void " + METHOD_NAME_TEMPLATE_PART + "() throws Exception {\n" +
-                "        MvcResult result = mockMvc.perform(get(" + "\"" + HTTP_URL_TEMPLATE_PART + "\"))\n" +
-                "                                  .andExpect(status().isOk())\n" +
-                "                                  .andReturn();\n" +
-                "\n" +
-                "        MockHttpServletResponse response = result.getResponse();\n" +
-                "        String actualResponseContent = response.getContentAsString();\n" +
-                "\n" +
-                "        String expectedResponseContent = findExpectedResponseContent();\n" +
-                "\n";
-    }
-
-    public static junit4Junit5TestClassContentGenerator INSTANCE = new junit4Junit5TestClassContentGenerator();
+                    "@SpringBootTest(classes = {" + SPRING_BOOT_APPLICATION_CLASS_NAME_PART + ".class})\n" +
+                    SQL_SCRIPT_ANNOT +
+                    QUICK_PERF_TEST_ANNOT +
+                    "@AutoConfigureMockMvc\n" +
+                    "public class " + CLASS_NAME_TEMPLATE_PART + " {\n" +
+                    "\n" +
+                    "    @Autowired\n" +
+                    "    private MockMvc mockMvc;\n" +
+                    "\n" +
+                    DISABLE_SAME_SELECT_TYPES_WITH_DIFFERENT_PARAM_VALUES_ANNOT +
+                    "    @Test\n" +
+                    "    public void " + METHOD_NAME_TEMPLATE_PART + "() throws Exception {\n" +
+                    "        MvcResult result = mockMvc.perform(get(" + "\"" + HTTP_URL_TEMPLATE_PART + "\"))\n" +
+                    "                                  .andExpect(status().isOk())\n" +
+                    "                                  .andReturn();\n" +
+                    "\n" +
+                    "        MockHttpServletResponse response = result.getResponse();\n" +
+                    "        String actualResponseContent = response.getContentAsString();\n" +
+                    "\n" +
+                    "        String expectedResponseContent = findExpectedResponseContent();\n" +
+                    "\n";
 
     private static final String ASSERTJ_ASSERTION =     "        assertThat(actualResponseContent).isEqualToNormalizingWhitespace(expectedResponseContent);\n";
     private static final String JSON_ASSERT_ASSERTION = "        assertEquals(expectedResponseContent, actualResponseContent, JSONCompareMode.LENIENT);\n";
 
-    private static final String textTemplatePart =
+    private static final String TEXT_TEMPLATE_PART =
                     JSON_ASSERT_ASSERTION +
                     ASSERTJ_ASSERTION +
                     "\n" +
@@ -126,7 +110,9 @@ public class junit4Junit5TestClassContentGenerator implements JavaClassGenerator
                     "\n" +
                     "}\n";
 
-    junit4Junit5TestClassContentGenerator() { }
+    public static Junit4Junit5TestClassContentGenerator INSTANCE = new Junit4Junit5TestClassContentGenerator();
+
+    Junit4Junit5TestClassContentGenerator() { }
 
     @Override
     public String generate(JavaClassGenerationConfig generationConfig) {
@@ -137,7 +123,7 @@ public class junit4Junit5TestClassContentGenerator implements JavaClassGenerator
         String className = ClassNameGenerator.INSTANCE
                           .generateClassNameFrom(generationConfig.relativeHttpUrl);
 
-        String result = (TEST_CLASS_TEMPLATE + textTemplatePart);
+        String result = (TEST_CLASS_TEMPLATE + TEXT_TEMPLATE_PART);
 
         Optional<TestFile> optionalSqlFile = generationConfig.optionalSqlFile;
 
