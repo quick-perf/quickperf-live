@@ -46,7 +46,7 @@ public class Junit4Junit5TestClassGeneratorTestContent {
                                                 , ""
                                                 , httpContentType, jUnitVersion);
         assertThat(
-                junit4Junit5TestClassContentGenerator.INSTANCE.generate(javaClassGenerationConfig)
+                Junit4Junit5TestClassContentGenerator.INSTANCE.generate(javaClassGenerationConfig)
                   )
         .contains("mockMvc.perform(get(\"/owners?lastName=\"))");
 
@@ -67,7 +67,7 @@ public class Junit4Junit5TestClassGeneratorTestContent {
                                              , jUnitVersion);
 
         assertThat(
-                junit4Junit5TestClassContentGenerator.INSTANCE.generate(javaClassGenerationConfig)
+                Junit4Junit5TestClassContentGenerator.INSTANCE.generate(javaClassGenerationConfig)
                   )
         .contains("public void get_owners_lastName()");
 
@@ -88,7 +88,7 @@ public class Junit4Junit5TestClassGeneratorTestContent {
                                              , jUnitVersion);
 
         assertThat(
-                junit4Junit5TestClassContentGenerator.INSTANCE.generate(javaClassGenerationConfig)
+                Junit4Junit5TestClassContentGenerator.INSTANCE.generate(javaClassGenerationConfig)
                 )
        .contains("public class OwnersLastNameTest {");
 
