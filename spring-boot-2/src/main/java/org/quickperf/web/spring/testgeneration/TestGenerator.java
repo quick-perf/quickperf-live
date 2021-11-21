@@ -13,8 +13,6 @@
 package org.quickperf.web.spring.testgeneration;
 
 import net.ttddyy.dsproxy.QueryInfo;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.quickperf.web.spring.Application;
 import org.quickperf.web.spring.HttpContentType;
 import org.quickperf.web.spring.config.TestGenerationConfig;
@@ -29,21 +27,18 @@ public class TestGenerator {
 
     public static TestGenerator INSTANCE = new TestGenerator();
 
-    private final Log logger = LogFactory.getLog(this.getClass());
-
     private TestGenerator() {
     }
 
     //TODO: REFACTOR TO LIMIT PARAMETER NUMBER
-    public void generateJUnitTestForGet(List<QueryInfo> selectQueries
-                                      , String relativeHttpUrl
-                                      , Application application
-                                      , String contentType
-                                      , String content
-                                      , TestGenerationConfig testGenerationConfig
-                                      , String httpCallReport
-                                      , QuickSqlTestData quickSqlTestData
-                                      , JUnitVersion jUnitVersion) {
+    public String generateJUnitTestForGet(List<QueryInfo> selectQueries
+                                        , String relativeHttpUrl
+                                        , Application application
+                                        , String contentType
+                                        , String content
+                                        , TestGenerationConfig testGenerationConfig
+                                        , QuickSqlTestData quickSqlTestData
+                                        , JUnitVersion jUnitVersion) {
 
         String fileNameWithoutExtension = ResourceFileNameGenerator.INSTANCE.buildFileNameWithoutExtension(relativeHttpUrl);
         String resourcePath = testGenerationConfig.getTestResourceFolder();
@@ -78,27 +73,21 @@ public class TestGenerator {
         String javaDir = testGenerationConfig.getJavaClassFolder();
         javaTestFile.writeInto(javaDir);
 
-        String report = buildReport( httpCallReport
-                                   , optionalSqlFile
-                                   , expectedResponseFile
-                                   , javaTestFile);
-
-        logger.info(report);
+        return buildTestGenerationReport(optionalSqlFile, expectedResponseFile, javaTestFile);
 
     }
 
-    private String buildReport( String httpCallReport
-                              , Optional<TestFile> optionalSqlFile
-                              , TestFile expectedResponseFile
-                              , TestFile javaTestFile) {
+    private String buildTestGenerationReport( Optional<TestFile> optionalSqlFile
+                                            , TestFile expectedResponseFile
+                                            , TestFile javaTestFile) {
         StringBuilder report = new StringBuilder();
-        report.append("Test generation for HTTP call: " + httpCallReport);
-        report.append(lineSeparator() + "\t * JUnit 5 test class: " + javaTestFile.filePath);
+        report.append("* TEST GENERATION");
+        report.append(lineSeparator() + "\t* JUnit 5 test class: " + javaTestFile.filePath);
         if (optionalSqlFile.isPresent()) {
             TestFile sqlFile = optionalSqlFile.get();
-            report.append(lineSeparator() + "\t * SQL script file: " + sqlFile.filePath);
+            report.append(lineSeparator() + "\t* SQL script file: " + sqlFile.filePath);
         }
-        report.append(lineSeparator() + "\t * Expected response: " + expectedResponseFile.filePath);
+        report.append(lineSeparator() + "\t* Expected response: " + expectedResponseFile.filePath);
         return report.toString();
     }
 

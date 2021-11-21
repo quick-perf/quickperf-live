@@ -219,9 +219,9 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
             diagnosticConnectionProfiler.stop();
 
             infoReport.append(lineSeparator());
-            String profilingConnectionResult = diagnosticConnectionProfiler.getProfilingResult();
             infoReport.append("* DATABASE CONNECTION PROFILING");
             infoReport.append(lineSeparator());
+            String profilingConnectionResult = diagnosticConnectionProfiler.getProfilingResult();
             infoReport.append(profilingConnectionResult);
         }
 
@@ -272,34 +272,31 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
             Application application = Application.from(context);
 
-            String httpCallReport = HttpResponseReportRetriever.INSTANCE.findHttpCallReport(httpServletRequest, httpServletResponse);
-
             if (testGenerationConfig.isJunit5GenerationEnabled()) {
-                TestGenerator.INSTANCE.generateJUnitTestForGet(selectQueries
-                                                             , relativeHttUrl
-                                                             , application
-                                                             , contentType
-                                                             , content
-                                                             , testGenerationConfig
-                                                             , httpCallReport
-                                                             , quickSqlTestData
-                                                             , JUnitVersion.VERSION_5
-                );
-
+                String testGenerationReport = TestGenerator.INSTANCE.generateJUnitTestForGet( selectQueries
+                                                                                            , relativeHttUrl
+                                                                                            , application
+                                                                                            , contentType
+                                                                                            , content
+                                                                                            , testGenerationConfig
+                                                                                            , quickSqlTestData
+                                                                                            , JUnitVersion.VERSION_5);
+                infoReport.append(lineSeparator());
+                infoReport.append(testGenerationReport);
             }
 
             if (testGenerationConfig.isJunit4GenerationEnabled()) {
-                TestGenerator.INSTANCE.generateJUnitTestForGet(selectQueries
-                                                             , relativeHttUrl
-                                                             , application
-                                                             , contentType
-                                                             , content
-                                                             , testGenerationConfig
-                                                             , httpCallReport
-                                                             , quickSqlTestData
-                                                             , JUnitVersion.VERSION_4
-                );
-
+                 String testGenerationReport = TestGenerator.INSTANCE.generateJUnitTestForGet( selectQueries
+                                                                                             , relativeHttUrl
+                                                                                             , application
+                                                                                             , contentType
+                                                                                             , content
+                                                                                             , testGenerationConfig
+                                                                                             , quickSqlTestData
+                                                                                             , JUnitVersion.VERSION_4
+                                                                                             );
+                 infoReport.append(lineSeparator());
+                 infoReport.append(testGenerationReport);
             }
 
         }
@@ -315,11 +312,17 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
         if (!infoReport.toString().isEmpty()) {
             appendHttpCallAtFirstPosition(httpServletRequest, httpServletResponse, infoReport);
-            for (QuickPerfHttpCallInfoWriter quickPerfHttpCallInfoWriter : quickPerfHttpCallInfoWriters) {
-                quickPerfHttpCallInfoWriter.write(infoReport.toString());
-            }
+            writeInfo(infoReport);
         }
 
+    }
+
+    private void writeInfo(StringBuilder infoReport) throws Exception {
+        for (QuickPerfHttpCallInfoWriter quickPerfHttpCallInfoWriter : quickPerfHttpCallInfoWriters) {
+            try (QuickPerfHttpCallInfoWriter writerToClose = quickPerfHttpCallInfoWriter) {
+                writerToClose.write(infoReport.toString());
+            }
+        }
     }
 
     private NumberFormat buildNumberFormatWithGrouping() {
