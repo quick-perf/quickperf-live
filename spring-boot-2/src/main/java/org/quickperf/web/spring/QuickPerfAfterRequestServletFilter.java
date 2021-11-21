@@ -40,10 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.lang.System.lineSeparator;
 import static org.quickperf.web.spring.QuickPerfBeforeRequestServletFilter.DiagnosticConnectionProfiler;
@@ -60,9 +57,9 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
     private final QuickSqlTestData quickSqlTestData;
 
-    private final Set<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters;
+    private final Collection<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters;
 
-    private final Set<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters;
+    private final Collection<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters;
 
     private final Log logger = LogFactory.getLog(this.getClass());
 
@@ -76,8 +73,8 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
                                             , TestGenerationConfig testGenerationConfig
                                             , QuickSqlTestData quickSqlTestData
                                             , ApplicationContext context
-                                            , Set<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters
-                                            , Set<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters) {
+                                            , Collection<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters
+                                            , Collection<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters) {
         this.jvmConfig = jvmConfig;
         this.databaseConfig = databaseConfig;
         this.databaseHttpConfig = databaseHttpConfig;
@@ -139,7 +136,6 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 
     private void handleProblem(Throwable problem) throws ServletException, IOException {
@@ -154,16 +150,10 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         }
     }
 
-    private void appendHttpCallAtFirstPosition(HttpServletRequest servletRequest, HttpServletResponse servletResponse, StringBuilder logMessage) {
-        String urlResponseReport = HttpResponseReportRetriever.INSTANCE.findHttpCallReport(servletRequest, servletResponse);
-        logMessage.insert(0, lineSeparator() + urlResponseReport);
-    }
-
     private void quickPerfProcessing(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
-        StringBuilder warnLogMessage = new StringBuilder();
-
-        StringBuilder infoReport = new StringBuilder();
+        Report warnReport = new Report(httpServletRequest, httpServletResponse);
+        Report infoReport = new Report(httpServletRequest, httpServletResponse);
 
         if (jvmConfig.isHeapAllocationMeasured() || jvmConfig.isHeapAllocationThresholdDetected()) {
             ByteWatcherSingleThread byteWatcherSingleThread = ByteWatcherSingleThreadRegistry.INSTANCE.get();
@@ -176,7 +166,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
                     String heapAllocationExceededMessage = "\t* [WARNING] Heap allocation is greater than "
                             + allocationFormat.format(thresholdInBytes) + " bytes: "
                             + allocationFormat.format(allocationInBytes) + " bytes";
-                    warnLogMessage.append(lineSeparator() + heapAllocationExceededMessage);
+                    warnReport.append(lineSeparator() + heapAllocationExceededMessage);
                 }
             }
 
@@ -232,10 +222,10 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
             LongDbRequestsListener longDbRequestsListener = SqlRecorderRegistry.INSTANCE.getSqlRecorderOfType(LongDbRequestsListener.class);
             SqlExecutions sqlExecutionsGreaterOrEqualToThreshold = longDbRequestsListener.getSqlExecutionsGreaterOrEqualToThreshold();
             if (!sqlExecutionsGreaterOrEqualToThreshold.isEmpty()) {
-                warnLogMessage.append(lineSeparator() + "\t* [WARNING] At least one SQL query has an execution time greater than " + sqlExecutionThresholdInMilliseconds + " ms");
+                warnReport.append(lineSeparator() + "\t* [WARNING] At least one SQL query has an execution time greater than " + sqlExecutionThresholdInMilliseconds + " ms");
                 String longQueriesAsString = sqlExecutionsGreaterOrEqualToThreshold.toString();
                 String longQueriesAsStringWithoutThreeLastLineBreaks = longQueriesAsString.substring(0, longQueriesAsString.length() - 3);
-                warnLogMessage.append(lineSeparator() + longQueriesAsStringWithoutThreeLastLineBreaks);
+                warnReport.append(lineSeparator() + longQueriesAsStringWithoutThreeLastLineBreaks);
             }
         }
 
@@ -246,13 +236,13 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
             if (selectAnalysis.getSameSelectTypesWithDifferentParamValues().evaluate()) {
                 Long selectNumber = selectAnalysis.getSelectNumber().getValue();
                 if (selectNumber.shortValue() >= databaseConfig.getNPlusOneSelectDetectionThreshold()) {
-                    warnLogMessage.append(lineSeparator() + "\t* [WARNING] N+1 select suspicion" + " - " + selectNumber + " SELECT");
+                    warnReport.append(lineSeparator() + "\t* [WARNING] N+1 select suspicion" + " - " + selectNumber + " SELECT");
                 }
             }
 
         }
 
-        detectPerfAntiPatterns(externalHttpCalls, warnLogMessage);
+        detectPerfAntiPatterns(externalHttpCalls, warnReport);
 
         String contentType = httpServletResponse.getContentType();
         HttpContentType httpContentType = new HttpContentType(contentType);
@@ -303,26 +293,9 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
         unregisterListeners();
 
-        String warnLogMessageAsString = warnLogMessage.toString();
-        if (!warnLogMessageAsString.isEmpty()) {
-            appendHttpCallAtFirstPosition(httpServletRequest, httpServletResponse, warnLogMessage);
-            String warningAsString = warnLogMessage.toString();
-            writeWarning(warningAsString);
-        }
+        warnReport.writeWith(quickPerfHttpCallWarningWriters);
+        infoReport.writeWith(quickPerfHttpCallInfoWriters);
 
-        if (!infoReport.toString().isEmpty()) {
-            appendHttpCallAtFirstPosition(httpServletRequest, httpServletResponse, infoReport);
-            writeInfo(infoReport);
-        }
-
-    }
-
-    private void writeInfo(StringBuilder infoReport) throws Exception {
-        for (QuickPerfHttpCallInfoWriter quickPerfHttpCallInfoWriter : quickPerfHttpCallInfoWriters) {
-            try (QuickPerfHttpCallInfoWriter writerToClose = quickPerfHttpCallInfoWriter) {
-                writerToClose.write(infoReport.toString());
-            }
-        }
     }
 
     private NumberFormat buildNumberFormatWithGrouping() {
@@ -331,15 +304,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         return numberFormat;
     }
 
-    private void writeWarning(String warningAsString) throws Exception {
-        for (QuickPerfHttpCallWarningWriter quickPerfHttpCallWarningWriter : quickPerfHttpCallWarningWriters) {
-            try (QuickPerfHttpCallWarningWriter writerToClose = quickPerfHttpCallWarningWriter) {
-                writerToClose.write(warningAsString);
-            }
-        }
-    }
-
-    private void detectPerfAntiPatterns(List<org.quickperf.web.spring.HttpCall> externalHttpCalls, StringBuilder warnLogMessage) {
+    private void detectPerfAntiPatterns(List<HttpCall> externalHttpCalls, Report warnReport) {
         Deque<PerfEvent> perfEvents = PerfEventsRegistry.INSTANCE.getPerfEvents();
 
         Deque<PerfEvent> httpCallBetweenConnectionGetAndClosePattern = new ArrayDeque<>();
@@ -360,14 +325,14 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
         if (databaseHttpConfig.isSynchronousHttpCallBetweenDbConnectionGottenAndClosedDetected()
                 && httpCallBetweenConnectionGetAndClosePattern.isEmpty()) {
-            warnLogMessage.append(lineSeparator() + "\t* [WARNING] Synchronous HTTP call while the application maintains the DB connection (between the time the DB connection is gotten from the data source and closed)");
+            warnReport.append(lineSeparator() + "\t* [WARNING] Synchronous HTTP call while the application maintains the DB connection (between the time the DB connection is gotten from the data source and closed)");
         }
 
         if (httpCallBetweenConnectionGetAndClosePattern.isEmpty()
          || httpCallBetweenConnectionGetAndCommitPattern.isEmpty()) {
-            warnLogMessage.append(lineSeparator() + "\t* Synchronous HTTP calls");
+            warnReport.append(lineSeparator() + "\t* Synchronous HTTP calls");
             for (HttpCall httpCall : externalHttpCalls) {
-                warnLogMessage.append(lineSeparator() + "\t\t* " + httpCall);
+                warnReport.append(lineSeparator() + "\t\t* " + httpCall);
             }
         }
 

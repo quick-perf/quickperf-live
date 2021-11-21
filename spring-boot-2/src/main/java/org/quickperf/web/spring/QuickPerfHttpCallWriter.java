@@ -12,6 +12,8 @@
  */
 package org.quickperf.web.spring;
 
-public interface QuickPerfHttpCallWarningWriter extends QuickPerfHttpCallWriter {
+public interface QuickPerfHttpCallWriter extends AutoCloseable {
+
+    void write(String message);
 
 }
