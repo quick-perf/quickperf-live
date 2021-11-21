@@ -12,6 +12,7 @@
  */
 package testgen.util;
 
+import messages.util.QuickPerfHttpCallInfoInterceptor;
 import org.quickperf.spring.springboottest.ASpringBootApplication;
 import org.quickperf.spring.springboottest.OtherApplicationPort;
 import org.quickperf.spring.springboottest.RestTemplateConfig;
@@ -34,6 +35,7 @@ import java.nio.file.Paths;
           properties = {"quickperf.enabled=true"}
         , classes = { ASpringBootApplication.class
                     , RestTemplateConfig.class
+                    , QuickPerfHttpCallInfoInterceptor.class
                     , OtherApplicationPort.class
                     }
         , webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -53,6 +55,9 @@ public class TestGen {
 
     @Autowired
     protected TestGenerationConfig testGenerationConfig;
+
+    @Autowired
+    protected QuickPerfHttpCallInfoInterceptor quickPerfHttpCallInfoInterceptor;
 
     protected String createTestFolderAndReturnPathWithTestFolderName(String testFolderName) {
         String targetFolderPath = findTargetFolderPath();
