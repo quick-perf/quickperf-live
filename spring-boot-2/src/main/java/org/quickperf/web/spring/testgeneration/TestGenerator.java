@@ -73,16 +73,17 @@ public class TestGenerator {
         String javaDir = testGenerationConfig.getJavaClassFolder();
         javaTestFile.writeInto(javaDir);
 
-        return buildTestGenerationReport(optionalSqlFile, expectedResponseFile, javaTestFile);
+        return buildTestGenerationReport(optionalSqlFile, expectedResponseFile
+                                        , javaTestFile, jUnitVersion);
 
     }
 
-    private String buildTestGenerationReport( Optional<TestFile> optionalSqlFile
-                                            , TestFile expectedResponseFile
-                                            , TestFile javaTestFile) {
+    private String buildTestGenerationReport( Optional<TestFile> optionalSqlFile, TestFile expectedResponseFile
+                                            , TestFile javaTestFile, JUnitVersion jUnitVersion) {
         StringBuilder report = new StringBuilder();
         report.append("* TEST GENERATION");
-        report.append(lineSeparator() + "\t* JUnit 5 test class: " + javaTestFile.filePath);
+        int junitVersionNumber = jUnitVersion.getNumber();
+        report.append(lineSeparator() + "\t* JUnit " + junitVersionNumber + " test class: " + javaTestFile.filePath);
         if (optionalSqlFile.isPresent()) {
             TestFile sqlFile = optionalSqlFile.get();
             report.append(lineSeparator() + "\t* SQL script file: " + sqlFile.filePath);
