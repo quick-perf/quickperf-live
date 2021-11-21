@@ -13,5 +13,15 @@
 package org.quickperf.web.spring.testgeneration;
 
 public enum JUnitVersion {
-    VERSION_4, VERSION_5
+    VERSION_4(4), VERSION_5(5);
+
+    private final int number;
+
+    JUnitVersion(int number) {
+        this.number = number;
+    }
+
+    int getNumber() {
+        return number;
+    }
 }

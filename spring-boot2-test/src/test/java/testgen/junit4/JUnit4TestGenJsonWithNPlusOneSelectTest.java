@@ -12,6 +12,7 @@
  */
 package testgen.junit4;
 
+import messages.util.TestableQuickPerfMessage;
 import org.junit.jupiter.api.Test;
 import org.quickperf.spring.springboottest.controller.HttpUrl;
 import testgen.util.FileContentVerifier;
@@ -19,6 +20,8 @@ import testgen.util.TestGen;
 
 import java.io.File;
 import java.io.IOException;
+
+import static messages.util.QuickPerfMessagesAssert.assertThat;
 
 public class JUnit4TestGenJsonWithNPlusOneSelectTest extends TestGen {
 
@@ -40,10 +43,12 @@ public class JUnit4TestGenJsonWithNPlusOneSelectTest extends TestGen {
         performGetOnUrlReturningJson(HttpUrl.JSON_WITH_N_PLUS_ONE_SELECT);
 
         // THEN
+        TestableQuickPerfMessage quickPerfInfos = quickPerfHttpCallInfoInterceptor.getInfos();
+        assertThat(quickPerfInfos).hasAMessageContaining("* JUnit 4 test class: ");
+
         FileContentVerifier fileContentVerifier =
                 new FileContentVerifier(pathOfFolderContainingGeneratedFiles
                                       , testRelativePath);
-
         fileContentVerifier.compareGeneratedFileWithReferenceFile("json-with-n-plus-one-select.sql");
         fileContentVerifier.compareGeneratedFileWithReferenceFile("json-with-n-plus-one-select-expected.json");
         fileContentVerifier.compareGeneratedFileWithReferenceFile("JsonWithNPlusOneSelectTest.java");
