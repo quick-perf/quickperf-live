@@ -12,11 +12,16 @@
  */
 package testgen.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FileContentVerifier {
 
@@ -34,7 +39,12 @@ public class FileContentVerifier {
         File testFolder = new File(pathOfFolderContainingGeneratedFiles);
         File generatedSqlFile = new File(testFolder, fileName);
         File expectedSqlFile = new File(folderContainingReferenceFiles, fileName);
-        assertThat(generatedSqlFile).hasSameTextualContentAs(expectedSqlFile);
+
+        if (fileName.endsWith(".json")){
+            assertEqualJsonFiles(expectedSqlFile, generatedSqlFile);
+        } else {
+            assertThat(generatedSqlFile).hasSameTextualContentAs(expectedSqlFile);
+        }
     }
 
     private File findFolderContainingReferenceFiles(String referenceFolderRelativePath) {
@@ -45,6 +55,15 @@ public class FileContentVerifier {
                         + File.separator + "resources"
                         + File.separator + "testgen-expected"
                         + File.separator + referenceFolderRelativePath);
+    }
+
+    private void assertEqualJsonFiles(File expectedSqlFile, File generatedSqlFile) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            assertEquals(mapper.readTree(expectedSqlFile), mapper.readTree(generatedSqlFile));
+        } catch (IOException e) {
+            throw new UncheckedIOException(String.format("Unable to compare json files:\n<%s> \nand:\n<%s>", expectedSqlFile.getAbsoluteFile(), generatedSqlFile.getAbsoluteFile()), e);
+        }
     }
 
 }

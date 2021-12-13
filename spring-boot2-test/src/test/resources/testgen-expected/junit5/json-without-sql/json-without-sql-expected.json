@@ -1,1 +1,9 @@
-[{"firstName":"Paul","lastName":"Pogba","team":"Manchester United"},{"firstName":"Antoine","lastName":"Griezman","team":"Barcelona"}]
+[ {
+  "firstName" : "Paul",
+  "lastName" : "Pogba",
+  "team" : "Manchester United"
+}, {
+  "firstName" : "Antoine",
+  "lastName" : "Griezmann",
+  "team" : "Barcelona"
+} ]

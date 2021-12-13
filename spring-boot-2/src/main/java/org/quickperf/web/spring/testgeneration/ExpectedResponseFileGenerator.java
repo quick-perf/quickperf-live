@@ -12,6 +12,8 @@
  */
 package org.quickperf.web.spring.testgeneration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.quickperf.web.spring.HttpContentType;
 
 class ExpectedResponseFileGenerator {
@@ -24,6 +26,9 @@ class ExpectedResponseFileGenerator {
     TestFile generate(String content, String contentType, String fileNameWithoutExtension) {
         String responseExtension = findExpectedResponseFileExtension(contentType);
         String expectedResponseFileName = fileNameWithoutExtension + "-expected" + responseExtension;
+        if (responseExtension.equals(".json")){
+            content = formatJson(content);
+        }
         return new TestFile(expectedResponseFileName, content);
     }
 
@@ -35,6 +40,18 @@ class ExpectedResponseFileGenerator {
             return ".html";
         }
         return ".txt";
+    }
+
+    private String formatJson(String content){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Object str = mapper.readValue(content, Object.class);
+            String jsonPrettyPrint = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(str);
+            content = jsonPrettyPrint;
+        } catch (JsonProcessingException e) {
+            // do nothing. original content will be used
+        }
+        return content;
     }
 
 }
