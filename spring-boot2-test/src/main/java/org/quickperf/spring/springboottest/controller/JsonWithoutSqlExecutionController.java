@@ -26,8 +26,8 @@ public class JsonWithoutSqlExecutionController {
     @GetMapping(HttpUrl.JSON_WITHOUT_SQL)
     public List<PlayerWithTeamName> jsonWithoutSql() {
         PlayerWithTeamName paulPogba = new PlayerWithTeamName("Paul", "Pogba", "Manchester United");
-        PlayerWithTeamName antoineGriezman = new PlayerWithTeamName("Antoine", "Griezman", "Barcelona" );
-        return asList(paulPogba, antoineGriezman);
+        PlayerWithTeamName antoineGriezmann = new PlayerWithTeamName("Antoine", "Griezmann", "Barcelona" );
+        return asList(paulPogba, antoineGriezmann);
     }
 
 }
