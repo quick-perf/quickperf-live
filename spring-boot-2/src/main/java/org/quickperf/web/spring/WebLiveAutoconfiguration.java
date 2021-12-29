@@ -12,6 +12,8 @@
  */
 package org.quickperf.web.spring;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.quickperf.web.spring.config.DatabaseConfig;
 import org.quickperf.web.spring.config.DatabaseHttpConfig;
 import org.quickperf.web.spring.config.JvmConfig;
@@ -36,4 +38,9 @@ import org.springframework.context.annotation.Import;
 @ConditionalOnProperty(value = "quickperf.enabled")
 public class WebLiveAutoconfiguration {
 
+	private static final Log LOGGER = LogFactory.getLog(WebLiveAutoconfiguration.class);
+
+	{
+		LOGGER.info("Quickperf Live is enabled");
+	}
 }
