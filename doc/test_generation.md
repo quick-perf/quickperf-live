@@ -22,6 +22,9 @@ GET 200 http://localhost:9966/petclinic/api/owners
 
 The schema below show how the test generation works.
 
+
+
+
 _QuickPerf live_ intercepts the SQL queries executed from an HTTP call. They are used together the [Quick SQL test data](https://github.com/quick-perf/quick-sql-test-data) library to generate an SQL file.
 
 _QuickPerf live_ generates an expected response file (JSON, HTML or text) from the HTTP response.
