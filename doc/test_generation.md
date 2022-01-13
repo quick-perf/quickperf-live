@@ -8,6 +8,7 @@ Today, for GET HTTP calls done with a Spring RestTemplate, the project allows **
 
 The generated tests execute an SQL file produced with the help of [**SQL test data generator library**](https://github.com/quick-perf/sql-test-data-generator#sql-test-data-generator).
 
+:mag_right: Test generation log example
 ```
 INFO  QuickPerfHttpCallHttpCallInfoLogger - 
 GET 200 http://localhost:9966/petclinic/api/owners
@@ -22,7 +23,7 @@ GET 200 http://localhost:9966/petclinic/api/owners
 
 The schema below show how the test generation works.
 
-![Test generation schema(./test_generation_schema.svg)
+![Test generation schema](./test_generation_schema.svg)
 
 
 _QuickPerf live_ intercepts the SQL queries executed from an HTTP call. They are used together the [Quick SQL test data](https://github.com/quick-perf/quick-sql-test-data) library to generate an SQL file.
@@ -30,9 +31,6 @@ _QuickPerf live_ intercepts the SQL queries executed from an HTTP call. They are
 _QuickPerf live_ generates an expected response file (JSON, HTML or text) from the HTTP response.
 
 QuickPerf generates a test Java class verifying the functional behavior of the HTTP method call and the absence of N+1 select. Firstly, the test loads the previously generated SQL file and executes the SQL statements. Then, the test performs the HTTP call. Finally, the test compares the content of the response to an expected response, loaded from the previously generated expected response file.
-
-:mag_right: Test generation log example
-
 
 
 ## How to configure the test generation
