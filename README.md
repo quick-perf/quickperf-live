@@ -65,19 +65,19 @@ your daily job or make the user experience better? _QuickPerf live_ may help you
 
 ### You work on an application lacking automated tests on the functional behavior
 You are not confident that your new development does not break another functional feature? You can generate automated tests with QuickPerf live!
-More [here](./doc/Test generation.md).
+More [here](./doc/test_generation.md).
 
 ### Your application is slow or allocates a lot of memory
 You can audit performance-related properties and detect performance anti-patterns with QuickPerf live. You can generate non-regression tests on N+1 select.
-More [here](./doc/Performance diagnostics.md).
+More [here](./doc/performance_diagnostics.md).
 
 ### You want to know what business data is handled by a web service
 Find out what types of business data a web service handles may be hard.
 Sometimes, we, as a developer, we also may be tempted to load more data 
 than necessary to implement a business behavior. This has sometimes an impact
 on performance. In both cases, _QuickPerf live_ can help you by 
-displaying the selected columns from the database (cf. *Selected columns* part in [Database diagnostics](./doc/Database diagnostics.md)), or by [creating the database dataset
-of a generated web service test](./doc/Test generation.md).
+displaying the selected columns from the database (cf. *Selected columns* part in [Database diagnostics](./doc/database_diagnostics.md)), or by [creating the database dataset
+of a generated web service test](./doc/test_generation.md).
 
 
 ###  Automatically generate QuickPerf and functional non-regression tests
@@ -147,9 +147,9 @@ You can update the configuration after the application startup with the help of 
 
 💡 QuickPerf MBeans are unavailable? Read [this](./doc/faq.md).
 
-:point_right: [Performance diagnostics](./doc/Performance diagnostics.md)
+:point_right: [Performance diagnostics](./doc/performance_diagnostics.md)
 
-:point_right: [Test generation](./doc/Test generation.md)
+:point_right: [Test generation](./doc/test_generation.md)
 
 :point_right: [A _yaml_ file example](./spring-boot-2/src/test/resources/quickperf-properties-test.yml)
 
