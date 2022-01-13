@@ -45,8 +45,8 @@ To do this, create Spring beans implementing ```QuickPerfHttpCallInfoWriter``` a
 
 // Dire qu'ils sont affichés par appel HTTP
 
-:point_right: [Database diagnostics](./doc/database_diagnostics.md)
+:point_right: [Database diagnostics](./database_diagnostics.md)
 
-:point_right: [Database and HTTP diagnostics](./doc/database_and_http_diagnostics.md)
+:point_right: [Database and HTTP diagnostics](./database_and_http_diagnostics.md)
 
-:point_right: [JVM diagnostics](./doc/jvm_diagnostics.md)
+:point_right: [JVM diagnostics](./jvm_diagnostics.md)
