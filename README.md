@@ -147,7 +147,7 @@ You can update the configuration after the application startup with the help of 
 
 💡 QuickPerf MBeans are unavailable? Read [this](./doc/faq.md).
 
-:point_right: [Performance diagnostics](/doc/Performance diagnostics.md)
+:point_right: [Performance diagnostics](./doc/Performance diagnostics.md)
 
 :point_right: [Test generation](./doc/Test generation.md)
 
