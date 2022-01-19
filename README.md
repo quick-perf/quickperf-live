@@ -68,8 +68,7 @@ You are not confident that your new development does not break another functiona
 More [here](./doc/test_generation.md).
 
 ### Your application is slow or allocates a lot of memory
-You can audit performance-related properties and detect performance anti-patterns with QuickPerf live. You can generate non-regression tests on N+1 select.
-More [here](./doc/performance_diagnostics.md).
+You can audit performance-related properties and detect performance anti-patterns with QuickPerf live. More [here](./doc/performance_diagnostics.md) You can generate non-regression tests on N+1 select.
 
 ### You want to know what business data is handled by a web service
 Find out what types of business data a web service handles may be hard.
