@@ -31,15 +31,19 @@ The schema below show how the test generation works.
 
 ![Test generation schema](./test_generation_schema.svg)
 
-_QuickPerf live_ intercepts the SQL queries executed from an HTTP call. Then, _QuickPerf live_ uses them to produce an SQL script with the help of  the [Quick SQL test data](https://github.com/quick-perf/quick-sql-test-data) library. Finally, _QuickPerf live_ saves the script into a file.
- 
-The tool generates an expected response file (_JSON_, _HTML_, or _text_) from the HTTP response.
+_QuickPerf live_ generates three types of file during the test generation process : an SQL script file, an expected response file and a Java class containing a test method (Junit 4 or JUnit 5).
 
-_QuickPerf live_ generates a test Java class verifying the functional behavior of the HTTP method call and the absence of N+1 select:
-1. The test loads the previously generated SQL file and executes the SQL statements.
-2. The test performs the HTTP call.
-3. The test compares the response's content to this of the expected response file. It works for both HTML and JSON responses. In the case of a JSON response, the project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current response with the expected one. 
-5. The test verifies the absence of N+1 select with an annotation of the [QuickPerf testing library](https://github.com/quick-perf/quickperf).
+_QuickPerf live_ intercepts the SQL queries executed from an HTTP call. Then, it uses them to produce an SQL script file with the help of  the [Quick SQL test data](https://github.com/quick-perf/quick-sql-test-data) library. Finally, _QuickPerf live_ saves the script into a file.
+ 
+The tool  generates an expected response file (_JSON_, _HTML_, or _text_) from the HTTP response.
+
+_QuickPerf live_ generates a test Java class verifying the functional behavior of the HTTP method call and the absence of N+1 select.
+This test:
+1. Loads the previously generated SQL file and executes the SQL statements.
+2. Performs the HTTP call.
+3. Compares the response's content to this of the expected response file. 
+In the case of a JSON response, the project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current response with the expected one. 
+4. Verifies the absence of N+1 select with an annotation of the [QuickPerf testing library](https://github.com/quick-perf/quickperf).
 
 ## How to configure the test generation
 
