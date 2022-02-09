@@ -6,7 +6,7 @@ _QuickPerf live_ displays diagnostics data with a WARNING log level:
 ```
 2021-10-18 19:27:18.903  WARN 21632 --- [nio-8080-exec-1] s.QuickPerfHttpCallHttpCallWarningLogger : 
 GET 200 http://localhost/page.html
-	* [WARNING] At least one SQL query has an execution time greater than 0 ms
+	* [WARNING] At least one SQL query has an execution time greater than 30 ms
 	Time:158, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query:["
     select
         distinct owner0_.id as id1_0_0_,
@@ -40,7 +40,7 @@ QuickPerf live also display other diagnostic data with an INFO log level:
 ```
 
 :bulb: You can not only display the diagnostic data on logs but also implement a custom export to a file, to a database or another storage. 
-To do this, create Spring beans implementing ```QuickPerfHttpCallInfoWriter``` and ```QuickPerfHttpCallWarningWriter``` interfaces.
+To do this, create Spring beans implementing ```QuickPerfHttpCallInfoWriter``` or ```QuickPerfHttpCallWarningWriter``` interfaces.
 
 
 // Dire qu'ils sont affichés par appel HTTP

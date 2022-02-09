@@ -1,12 +1,19 @@
 # Test generation
 
-Today, for GET HTTP calls done with a Spring RestTemplate, the project allows **generating JUnit 4 and JUnit 5 tests**:
-1) **Reproducing N+1 select with a non-regression on N+1 select** thanks to the [**QuickPerf testing library**](https://github.com/quick-perf/quickperf).
+The test generation feature aims at producing automatic tests checking the functional behavior and performance-related properties.
 
-2) **Ensuring a non-regression on the functional behavior.**
-   It works for both  HTML or JSON response. The project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current JSON response with the expected one.
+Today, the test generation feature allows creating Junit 4 or JUnit 5 java test class assuring a non-regression on a _GET_ HTTP call response. It could also check the behavior of other HTTP calls (POST, PUT, ...); feel free to contribute to this open-source project! 
+The generated tests also currently check the absence of an N+1 select. It may also verify other performance-related properties, such as the presence of a database connection leak. Once again, don't hesitate to contribute to _QuickPerf live_!
 
-The generated tests execute an SQL file produced with the help of [**SQL test data generator library**](https://github.com/quick-perf/sql-test-data-generator#sql-test-data-generator).
+E
+
+`
+The generated test can check the functional behavior and performance-related properties.
+`
+// copie écran fichiers générés
+// Bout de code fichier Java générés
+
+// Infos outils rassemblés par appel HTTP
 
 :mag_right: Test generation log example
 ```
@@ -18,20 +25,21 @@ GET 200 http://localhost:9966/petclinic/api/owners
 	* Expected response: .\src\test\resources\api-owners-expected.json
 ```
 
-## How the test generation works
-
+## The test generation under the hood
 
 The schema below show how the test generation works.
 
 ![Test generation schema](./test_generation_schema.svg)
 
+_QuickPerf live_ intercepts the SQL queries executed from an HTTP call. Then, _QuickPerf live_ uses them to produce an SQL script with the help of  the [Quick SQL test data](https://github.com/quick-perf/quick-sql-test-data) library. Finally, _QuickPerf live_ saves the script into a file.
+ 
+The tool generates an expected response file (_JSON_, _HTML_, or _text_) from the HTTP response.
 
-_QuickPerf live_ intercepts the SQL queries executed from an HTTP call. They are used together the [Quick SQL test data](https://github.com/quick-perf/quick-sql-test-data) library to generate an SQL file.
-
-_QuickPerf live_ generates an expected response file (JSON, HTML or text) from the HTTP response.
-
-QuickPerf generates a test Java class verifying the functional behavior of the HTTP method call and the absence of N+1 select. Firstly, the test loads the previously generated SQL file and executes the SQL statements. Then, the test performs the HTTP call. Finally, the test compares the content of the response to an expected response, loaded from the previously generated expected response file.
-
+_QuickPerf live_ generates a test Java class verifying the functional behavior of the HTTP method call and the absence of N+1 select:
+1. The test loads the previously generated SQL file and executes the SQL statements.
+2. The test performs the HTTP call.
+3. The test compares the response's content to this of the expected response file. It works for both HTML and JSON responses. In the case of a JSON response, the project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current response with the expected one. 
+5. The test verifies the absence of N+1 select with an annotation of the [QuickPerf testing library](https://github.com/quick-perf/quickperf).
 
 ## How to configure the test generation
 

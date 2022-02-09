@@ -43,28 +43,6 @@ QuickPerf
 ```
 2021-10-27 11:16:35.945  WARN 6020 --- [nio-8080-exec-8] s.QuickPerfHttpCallHttpCallWarningLogger : 
 GET 200 http://localhost:8080/vets.html
-	Time:158, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query:["
-    select
-        distinct owner0_.id as id1_0_0_,
-        pets1_.id as id1_1_1_,
-        owner0_.first_name as first_na2_0_0_,
-        owner0_.last_name as last_nam3_0_0_,
-        owner0_.address as address4_0_0_,
-        owner0_.city as city5_0_0_,
-        owner0_.telephone as telephon6_0_0_,
-        pets1_.name as name2_1_1_,
-        pets1_.birth_date as birth_da3_1_1_,
-        pets1_.owner_id as owner_id4_1_1_,
-        pets1_.type_id as type_id5_1_1_,
-        pets1_.owner_id as owner_id4_1_0__,
-        pets1_.id as id1_1_0__ 
-    from
-        owners owner0_ 
-    left outer join
-        pets pets1_ 
-            on owner0_.id=pets1_.owner_id 
-    where
-        owner0_.last_name like ?"], Params:[(%)]
 	* [WARNING] Synchronous HTTP call while the application maintains the DB connection (between the time the DB connection is gotten from the data source and closed)
 	* Synchronous HTTP calls
 		* GET 200 http://localhost:8080/external-call- Execution time: 306 ms

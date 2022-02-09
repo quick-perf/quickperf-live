@@ -31,7 +31,7 @@ QuickPerf
 ```
 2021-10-27 11:02:23.500  INFO 6020 --- [nio-8080-exec-3] .w.s.QuickPerfHttpCallHttpCallInfoLogger : 
 GET 200 http://localhost:8080/owners/2
-* HEAP ALLOCATION: 1 316 984 bytes
+* HEAP ALLOCATION: 1 316 984 bytes
 ```
 
 ## Heap allocation threshold 
@@ -68,6 +68,6 @@ QuickPerf
 ```
 2021-10-27 11:06:31.309  WARN 6020 --- [nio-8080-exec-4] s.QuickPerfHttpCallHttpCallWarningLogger : 
 GET 200 http://localhost:8080/owners/2/edit
-	* [WARNING] Heap allocation is greater than 10 000 000 bytes: 17 509 888 bytes
+	* [WARNING] Heap allocation is greater than 10 000 000 bytes: 17 509 888 bytes
 ```
 
