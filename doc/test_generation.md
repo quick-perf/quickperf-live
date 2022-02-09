@@ -45,7 +45,8 @@ _QuickPerf live_ generates a test Java class verifying the functional behavior o
 
 ### Configure the generation folders
 
-💡 ***Tip*** If you use the library in your local environment, configure the generation in ```src/test/java``` and ```src/test/resources```. So that, you can execute the generated tests in your IDE just after the generation!
+💡 ***Tip*** 
+If you use the library in your local environment, configure the generation in ```src/test/java``` and ```src/test/resources```. So that, you can execute the generated tests in your IDE just after the generation!
 
 :wrench: _.properties_ configuration example
 ```properties
