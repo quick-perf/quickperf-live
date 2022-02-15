@@ -2,18 +2,12 @@
 
 The test generation feature aims at producing automatic tests checking the functional behavior and performance-related properties.
 
-Today, the test generation feature allows creating Junit 4 or JUnit 5 java test class assuring a non-regression on a _GET_ HTTP call response. It could also check the behavior of other HTTP calls (POST, PUT, ...); feel free to contribute to this open-source project! 
-The generated tests also currently check the absence of an N+1 select. It may also verify other performance-related properties, such as the presence of a database connection leak. Once again, don't hesitate to contribute to _QuickPerf live_!
+Today, the test generation feature allows creating Junit 4 or JUnit 5 java test classes assuring a functional non-regression of _GET_ HTTP calls. In the future, this feature could also check the behavior of other HTTP calls (POST, PUT, ...); feel free to contribute to this open-source project! 
+The generated tests also currently check the absence of N+1 selects. It may also verify other performance-related properties, such as the presence of a database connection leak. Once again, don't hesitate to contribute to _QuickPerf live_!
 
-E
-
-`
 The generated test can check the functional behavior and performance-related properties.
-`
-// copie écran fichiers générés
-// Bout de code fichier Java générés
 
-// Infos outils rassemblés par appel HTTP
+
 
 :mag_right: Test generation log example
 ```
@@ -31,26 +25,33 @@ The schema below show how the test generation works.
 
 ![Test generation schema](./test_generation_schema.svg)
 
-_QuickPerf live_ generates three types of file during the test generation process : an SQL script file, an expected response file and a Java class containing a test method (Junit 4 or JUnit 5).
+_QuickPerf live_ generates three types of files during the test generation process: 
+* An SQL script file
+* An expected response file
+* A Java test class (Junit 4 or JUnit 5)
 
+### SQL script file
 _QuickPerf live_ intercepts the SQL queries executed from an HTTP call. Then, it uses them to produce an SQL script file with the help of  the [Quick SQL test data](https://github.com/quick-perf/quick-sql-test-data) library. Finally, _QuickPerf live_ saves the script into a file.
  
+
+### Expected response file
 The tool  generates an expected response file (_JSON_, _HTML_, or _text_) from the HTTP response.
 
-_QuickPerf live_ generates a test Java class verifying the functional behavior of the HTTP method call and the absence of N+1 select.
-This test:
-1. Loads the previously generated SQL file and executes the SQL statements.
-2. Performs the HTTP call.
-3. Compares the response's content to this of the expected response file. 
+### Java test class
+_QuickPerf live_ produces a test Java class with one method verifying the functional behavior of the HTTP method call and the absence of N+1 select.
+
+The generated test performs several actions described below: 
+1. The test Loads the previously generated SQL file and executes the SQL statements.
+2. The test performs the HTTP call.
+3. The test compares the response's content to the expected one contained in the response file.
 In the case of a JSON response, the project uses the [JSONassert library](https://github.com/skyscreamer/JSONassert) to compare the current response with the expected one. 
-4. Verifies the absence of N+1 select with an annotation of the [QuickPerf testing library](https://github.com/quick-perf/quickperf).
+4. The test verifies the absence of N+1 select with an annotation of the [QuickPerf testing library](https://github.com/quick-perf/quickperf).
 
 ## How to configure the test generation
 
 ### Configure the generation folders
 
-💡 ***Tip*** 
-If you use the library in your local environment, configure the generation in ```src/test/java``` and ```src/test/resources```. So that, you can execute the generated tests in your IDE just after the generation!
+💡 ***Tip*** If you use the library in your local environment, configure the generation in ```src/test/java``` and ```src/test/resources```  so that you can promptly execute the generated tests in your IDE!
 
 :wrench: _.properties_ configuration example
 ```properties
