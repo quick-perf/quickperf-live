@@ -44,7 +44,7 @@ GET 200 http://localhost:8080/owners/2/edit
 ### Generate non-regression tests
 
 The generated tests ensure a non-regression on:
-* the ***functional behavior***
+* ***functional behavior***
 * ***performance-related properties***
 
 👉 [Learn more](./doc/test_generation.md)
