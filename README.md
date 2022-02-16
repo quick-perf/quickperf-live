@@ -39,7 +39,7 @@ GET 200 http://localhost:8080/owners/2/edit
 ```
 👉 [Learn more](./doc/performance_diagnosics.md)
 
-💡 You can use performance-diagnostic features *during development* or help you *diagnose* the performance of a deployed application*.
+💡 You can use the performance diagnostic features during development or to help you diagnose the performance of a deployed application.
 
 ### Generate non-regression tests
 
