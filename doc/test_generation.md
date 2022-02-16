@@ -123,7 +123,7 @@ To compile, you need to add the following dependencies:
 </dependency>
 ```
 
-### Enable test generation for JUnit 4
+### Enable the test generation for JUnit 4
 
 :wrench: _.properties_ configuration
 ```properties
