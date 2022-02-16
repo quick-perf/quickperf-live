@@ -52,7 +52,7 @@ The generated tests ensure a non-regression on:
 ## Some use cases
 
 You have many things to do or think about in your daily job.
-You may not have enough time to improve the following issues that would ease your daily job or improve the user experience? _QuickPerf live_ may help you!
+You may not have enough time to improve the following issues that would ease your daily job or improve the user experience. _QuickPerf live_ could help you!
 
 ### You work on an application lacking automated tests on business behavior
 Are you not confident that your new development will break another business feature?? _QuickPerf live_ allows you to generate automated tests!
