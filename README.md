@@ -132,9 +132,9 @@ quickperf.enabled=true
 You can configure the performance diagnostic and the test generation with properties.
 You can update the configuration after the application startup with the help of MBeans.
 
-👉 [Performance diagnostics](./doc/performance_diagnostics.md)
+👉 [**Performance diagnostics**](./doc/performance_diagnostics.md)
 
-👉 [Test generation](./doc/test_generation.md)
+👉 [**Test generation**](./doc/test_generation.md)
 
 ### Tip
 QuickPerf MBeans are unavailable? Read [this](./doc/faq.md).
