@@ -47,6 +47,8 @@ GET 200 http://localhost:8080/owners/2
 :bulb:
 You can display the diagnostic data with logs or implement a custom export to a file, database, or storage. To do this, create Spring beans implementing ```QuickPerfHttpCallInfoWriter``` or ```QuickPerfHttpCallWarningWriter``` interface.
 
+The tool supplies different types of diagnostics:
+
 :point_right: [**Database diagnostics**](./database_diagnostics.md)
 
 :point_right: [**Database and HTTP diagnostics**](./database_and_http_diagnostics.md)
