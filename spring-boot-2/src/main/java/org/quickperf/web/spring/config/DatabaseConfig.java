@@ -45,6 +45,13 @@ public class DatabaseConfig {
 	@Value("${quickperf.database.sql.execution-time.thresholdInMs:0}")
 	private int sqlExecutionTimeThresholdInMilliseconds;
 
+	@Value("${quickperf.database.sql.execution.detected:false}")
+	private boolean sqlExecutionDetected;
+
+	@Value("${quickperf.database.sql.execution.threshold:10}")
+	private int sqlExecutionThreshold;
+
+
 	@ManagedAttribute
 	public boolean isNPlusOneSelectDetected() {
 		return nPlusOneSelectDetected;
@@ -115,4 +122,20 @@ public class DatabaseConfig {
 		this.sqlDisplayed = sqlDisplayed;
 	}
 
+	@ManagedAttribute
+	public boolean isSqlExecutionDetected() {
+		return this.sqlExecutionDetected;
+	}
+	@ManagedOperation
+	public void setSqlExecutionDetected(boolean sqlExecutionDetected){
+		this.sqlExecutionDetected = sqlExecutionDetected;
+	}
+	@ManagedAttribute
+	public int getSqlExecutionThreshold(){
+		return this.sqlExecutionThreshold;
+	}
+	@ManagedOperation
+	public void setSqlExecutionThreshold(int threshold){
+		this.sqlExecutionThreshold = threshold;
+	}
 }

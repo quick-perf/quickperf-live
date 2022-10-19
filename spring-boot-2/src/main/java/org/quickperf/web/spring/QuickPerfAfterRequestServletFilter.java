@@ -180,7 +180,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         SqlExecutionsRecorder sqlExecutionsRecorder = SqlRecorderRegistry.INSTANCE.getSqlRecorderOfType(SqlExecutionsRecorder.class);
 
         SqlExecutions sqlExecutions = null;
-        if (databaseConfig.isSqlDisplayed() || databaseConfig.isNPlusOneSelectDetected()) {
+        if (databaseConfig.isSqlDisplayed() || databaseConfig.isNPlusOneSelectDetected() || databaseConfig.isSqlExecutionDetected() ) {
             sqlExecutions = sqlExecutionsRecorder.findRecord(null);
         }
 
@@ -238,6 +238,16 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
                 if (selectNumber.shortValue() >= databaseConfig.getNPlusOneSelectDetectionThreshold()) {
                     warnReport.append(lineSeparator() + "\t* [WARNING] N+1 select suspicion" + " - " + selectNumber + " SELECT");
                 }
+            }
+
+        }
+
+        if(databaseConfig.isSqlExecutionDetected()) {
+            int sqlExecutionThreshold = databaseConfig.getSqlExecutionThreshold();
+            int numberOfExecutions = sqlExecutions.getNumberOfExecutions();
+
+            if(numberOfExecutions > sqlExecutionThreshold){
+                warnReport.append(lineSeparator() + "\t* [WARNING] You have reached your SQL executions threshold" + " : " + numberOfExecutions + " > " + sqlExecutionThreshold);
             }
 
         }

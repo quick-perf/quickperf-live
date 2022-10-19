@@ -240,7 +240,8 @@ GET 200 http://localhost:8080/owners?lastName=
 
 You have to configure two properties to spot long SQL queries.
 
-The
+:wrench: .properties configuration
+
 ```properties
 quickperf.database.sql.execution-time.detected
 ```
@@ -297,4 +298,57 @@ GET 200 http://localhost:8080/owners?lastName=
             on owner0_.id=pets1_.owner_id 
     where
         owner0_.last_name like ?"], Params:[(%)]
+```
+
+### Execution Threshold
+
+:wrench: _.properties_ configuration example
+
+You have to configure two properties to set a threshold to SQL executions.
+The default value for this threshold is 10 sql executions.
+
+:wrench: .properties configuration
+```properties
+quickperf.database.sql.execution.detected=true
+quickperf.database.sql.execution.threshold=10
+```
+:wrench: YAML configuration example
+
+```yaml
+quickperf:
+  database:
+    sql:
+      execution:
+        detected: true
+        threshold: 10
+```
+:wrench: MBean configuration
+
+```
+QuickPerf
+  -- Database
+      -- Operations
+           -- boolean isSqlExecutionDetected()
+           -- void setSqlExecutionDetected(boolean)
+           -- int getSqlExecutionThreshold()
+           -- void setSqlExecutionThreshold(int)
+```
+
+:mag_right: Log example
+```
+2022-10-19 15:09:16.100 INFO 68225 --- [ restartedMain] o.q.s.s.ASpringBootApplication : Started ASpringBootApplication in 7.06 seconds (JVM running for 9.127)
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select player0_.id as id1_0_, player0_.first_name as first_na2_0_, player0_.last_name as last_nam3_0_, player0_.team_id as team_id4_0_ from player player0_
+Hibernate: select team0_.id as id1_1_0_, team0_.name as name2_1_0_ from team team0_ where team0_.id=?
+2022-10-19 15:10:38.899 WARN 68225 --- [tp1496937262-36] s.QuickPerfHttpCallHttpCallWarningLogger :
+GET 200 http://localhost:8080/json-with-n-plus-one-select
+* [WARNING] You have reached your SQL executions threshold : 11 > 10
 ```
