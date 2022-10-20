@@ -10,7 +10,7 @@ when no warning will be raised.
 
 :wrench: _.properties_ configuration example
 
-```properties
+```
 quickperf.database.n+1.detected=true
 quickperf.database.n+1.threshold=20
 ```
@@ -47,7 +47,7 @@ GET 200 http://localhost:8080/owners?lastName=
 
 :wrench: _.properties_ configuration
 
-```properties
+```
 quickperf.database.sql.displayed=true
 ```
 :wrench: YAML configuration
@@ -134,7 +134,7 @@ connection 905860618 - java.sql.Connection.close()
 
 :wrench: _.properties_ configuration
 
-```properties
+```
 quickperf.database.sql.displayed=true
 ```
 :wrench: YAML configuration
@@ -197,7 +197,7 @@ GET 200 http://localhost:8080/owners?lastName=
 
 :wrench: _.properties_ configuration
 
-```properties
+```
 quickperf.database.sql.displayed.selected-columns=true
 ```
 
@@ -247,7 +247,7 @@ quickperf.database.sql.execution-time.detected
 ```
 
 
-```properties
+```
 quickperf.database.sql.execution-time.detected=true
 #ping value included in execution time threshold
 quickperf.database.sql.execution-time.thresholdInMs=50
@@ -308,7 +308,7 @@ You have to configure two properties to set a threshold to SQL executions.
 The default value for this threshold is 10 sql executions.
 
 :wrench: .properties configuration
-```properties
+```
 quickperf.database.sql.execution.detected=true
 quickperf.database.sql.execution.threshold=10
 ```
