@@ -57,7 +57,7 @@ _QuickPerf live_ looks at the HTTP URL value to build the name of the generated 
 💡 ***Tip*** If you use the library in your local environment, configure the generation in ```src/test/java``` and ```src/test/resources```  so that you can promptly execute the generated tests in your IDE!
 
 :wrench: _.properties_ configuration example
-```properties
+```
 quickperf.test-generation.java-folder-path=.\\src\\test\\resources
 quickperf.test-generation.resource-folder-path=.\\src\\test\\java
 ```
