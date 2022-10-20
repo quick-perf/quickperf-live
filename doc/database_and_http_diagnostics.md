@@ -8,7 +8,7 @@ However, an important pool size has a negative impact on performance ([HikariCP 
 [Database Connections: Less is More](https://kwahome.medium.com/database-connections-less-is-more-86c406b6fad)).
 So, synchronous HTTP calls happening during the time the application retain the database connection can decrease performance. It is a performance antipattern.
 
-[Hikari CP provides a ```leakDetectionThreshold``` property allowing to log an alert if a connection is out of the pool for too long. 
+Hikari CP provides a ```leakDetectionThreshold``` property allowing to log an alert if a connection is out of the pool for too long. 
 The antipattern mentioned above may cause this.
 
 ```QuickPerf live```  considers the application maintains the database connection between the calls to ```javax.sql.DataSource. getConnection()``` (or ```javax.sql.DataSource. getConnection(String username,
