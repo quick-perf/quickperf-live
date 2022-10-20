@@ -121,7 +121,7 @@ quickperf:
 
 From a _.properties_ file:
 
-```properties
+```
 quickperf.enabled=true
 ```
 
