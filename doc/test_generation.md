@@ -126,7 +126,7 @@ To compile, you need to add the following dependencies:
 ### Enable the test generation for JUnit 4
 
 :wrench: _.properties_ configuration
-```properties
+```
 quickperf.test-generation.junit4.enabled=true
 ```
 
@@ -150,7 +150,7 @@ QuickPerf
 ### Enable the test generation for JUnit 5
 
 :wrench: _.properties_ configuration example
-```properties
+```
 quickperf.test-generation.junit5.enabled=true
 ```
 
