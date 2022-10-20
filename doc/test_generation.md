@@ -2,7 +2,7 @@
 
 The test generation feature aims at producing automatic tests checking the functional behavior and performance-related properties.
 
-Today, the test generation feature allows creating _Junit 4_ or _JUnit 5_ java test classes assuring a functional non-regression of _GET_ HTTP calls. In the future, this feature could also check the behavior of other HTTP calls (POST, PUT, ...); feel free to contribute to this open-source project! 
+Today, the test generation feature allows the creation of _Junit 4_ or _JUnit 5_ java test classes assuring a functional non-regression of _GET_ HTTP calls. In the future, this feature could also check the behavior of other HTTP calls (POST, PUT, ...); feel free to contribute to this open-source project! 
 The generated tests also currently check the absence of N+1 selects. It may also verify other performance-related properties, such as the presence of a database connection leak. Once again, don't hesitate to contribute to _QuickPerf live_!
 
 ## Test generation process
@@ -57,7 +57,7 @@ _QuickPerf live_ looks at the HTTP URL value to build the name of the generated 
 💡 ***Tip*** If you use the library in your local environment, configure the generation in ```src/test/java``` and ```src/test/resources```  so that you can promptly execute the generated tests in your IDE!
 
 :wrench: _.properties_ configuration example
-```properties
+```
 quickperf.test-generation.java-folder-path=.\\src\\test\\resources
 quickperf.test-generation.resource-folder-path=.\\src\\test\\java
 ```
@@ -126,7 +126,7 @@ To compile, you need to add the following dependencies:
 ### Enable the test generation for JUnit 4
 
 :wrench: _.properties_ configuration
-```properties
+```
 quickperf.test-generation.junit4.enabled=true
 ```
 
@@ -150,7 +150,7 @@ QuickPerf
 ### Enable the test generation for JUnit 5
 
 :wrench: _.properties_ configuration example
-```properties
+```
 quickperf.test-generation.junit5.enabled=true
 ```
 

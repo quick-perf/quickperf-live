@@ -1,16 +1,16 @@
 # Database diagnostics
 
 ## N+1 select detection
-To spot N+1 select, _QuickPerf live_ verifies if the application emits several times the same type
-of select statement with different parameter values. The same select type executed in a loop will also result in a positive detection.
+To spot N+1 select, _QuickPerf live_ verifies if the application emits the same type
+of select statement with different parameter values several times. The same select type executed in a loop will also result in a positive detection.
 
 The _quickperf.database.n+1.detected_ property allows to enable the detection.
-_quickperf.database.n+1.threshold_ properties is optional. If the number of generated SELECT statements is less than the configured threshold, 
+_quickperf.database.n+1.threshold_ properties is optional. Its default value is 3. If the number of generated SELECT statements is less than the configured threshold, 
 when no warning will be raised.
 
 :wrench: _.properties_ configuration example
 
-```properties
+```
 quickperf.database.n+1.detected=true
 quickperf.database.n+1.threshold=20
 ```
@@ -47,7 +47,7 @@ GET 200 http://localhost:8080/owners?lastName=
 
 :wrench: _.properties_ configuration
 
-```properties
+```
 quickperf.database.sql.displayed=true
 ```
 :wrench: YAML configuration
@@ -134,7 +134,7 @@ connection 905860618 - java.sql.Connection.close()
 
 :wrench: _.properties_ configuration
 
-```properties
+```
 quickperf.database.sql.displayed=true
 ```
 :wrench: YAML configuration
@@ -197,7 +197,7 @@ GET 200 http://localhost:8080/owners?lastName=
 
 :wrench: _.properties_ configuration
 
-```properties
+```
 quickperf.database.sql.displayed.selected-columns=true
 ```
 
@@ -247,7 +247,7 @@ quickperf.database.sql.execution-time.detected
 ```
 
 
-```properties
+```
 quickperf.database.sql.execution-time.detected=true
 #ping value included in execution time threshold
 quickperf.database.sql.execution-time.thresholdInMs=50
@@ -305,10 +305,10 @@ GET 200 http://localhost:8080/owners?lastName=
 :wrench: _.properties_ configuration example
 
 You have to configure two properties to set a threshold to SQL executions.
-The default value for this threshold is 10 sql executions.
+The default value for this threshold is 10 SQL executions.
 
 :wrench: .properties configuration
-```properties
+```
 quickperf.database.sql.execution.detected=true
 quickperf.database.sql.execution.threshold=10
 ```
