@@ -1,8 +1,8 @@
 # Database diagnostics
 
 ## N+1 select detection
-To spot N+1 select, _QuickPerf live_ verifies if the application emits several times the same type
-of select statement with different parameter values. The same select type executed in a loop will also result in a positive detection.
+To spot N+1 select, _QuickPerf live_ verifies if the application emits the same type
+of select statement with different parameter values several times. The same select type executed in a loop will also result in a positive detection.
 
 The _quickperf.database.n+1.detected_ property allows to enable the detection.
 _quickperf.database.n+1.threshold_ properties is optional. If the number of generated SELECT statements is less than the configured threshold, 
