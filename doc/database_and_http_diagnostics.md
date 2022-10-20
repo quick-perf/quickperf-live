@@ -14,7 +14,7 @@ _QuickPerf live_ considers the application maintains the database connection bet
 String password)```) and ```java.sql.Connection.close()``` methods.
 
 :wrench: _.properties_ configuration example
-```properties
+```
 quickperf.synchronous-http-call.while-db-connection-maintained.detected=true
 ```
 
