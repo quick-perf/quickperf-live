@@ -2,7 +2,7 @@
 
 The test generation feature aims at producing automatic tests checking the functional behavior and performance-related properties.
 
-Today, the test generation feature allows creating _Junit 4_ or _JUnit 5_ java test classes assuring a functional non-regression of _GET_ HTTP calls. In the future, this feature could also check the behavior of other HTTP calls (POST, PUT, ...); feel free to contribute to this open-source project! 
+Today, the test generation feature allows the creation of _Junit 4_ or _JUnit 5_ java test classes assuring a functional non-regression of _GET_ HTTP calls. In the future, this feature could also check the behavior of other HTTP calls (POST, PUT, ...); feel free to contribute to this open-source project! 
 The generated tests also currently check the absence of N+1 selects. It may also verify other performance-related properties, such as the presence of a database connection leak. Once again, don't hesitate to contribute to _QuickPerf live_!
 
 ## Test generation process
