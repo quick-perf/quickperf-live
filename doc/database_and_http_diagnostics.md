@@ -11,7 +11,7 @@ So, synchronous HTTP calls happening during the time the application retain the 
 Hikari CP provides a ```leakDetectionThreshold``` property allowing to log an alert if a connection is out of the pool for too long. 
 The antipattern mentioned above may cause this.
 
-```QuickPerf live```  considers the application maintains the database connection between the calls to ```javax.sql.DataSource. getConnection()``` (or ```javax.sql.DataSource. getConnection(String username,
+_QuickPerf live_ considers the application maintains the database connection between the calls to ```javax.sql.DataSource. getConnection()``` (or ```javax.sql.DataSource. getConnection(String username,
 String password)```) and ```java.sql.Connection.close()```.
 
 :wrench: _.properties_ configuration example
