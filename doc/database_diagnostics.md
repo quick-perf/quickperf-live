@@ -5,7 +5,7 @@ To spot N+1 select, _QuickPerf live_ verifies if the application emits the same 
 of select statement with different parameter values several times. The same select type executed in a loop will also result in a positive detection.
 
 The _quickperf.database.n+1.detected_ property allows to enable the detection.
-_quickperf.database.n+1.threshold_ properties is optional. If the number of generated SELECT statements is less than the configured threshold, 
+_quickperf.database.n+1.threshold_ properties is optional. Its default value is 3. If the number of generated SELECT statements is less than the configured threshold, 
 when no warning will be raised.
 
 :wrench: _.properties_ configuration example
