@@ -7,7 +7,7 @@
 -Dspring.jmx.enabled=true
 ```
 * From a _.properties file_ 
-```properties
+```
 spring.jmx.enabled=true
 ```
 * From a _YAML file_
