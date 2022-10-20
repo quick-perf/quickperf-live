@@ -11,7 +11,7 @@ Hikari CP provides a ```leakDetectionThreshold``` property allowing to log an al
 The antipattern mentioned above may cause this.
 
 _QuickPerf live_ considers the application maintains the database connection between the calls to ```javax.sql.DataSource. getConnection()``` (or ```javax.sql.DataSource. getConnection(String username,
-String password)```) and ```java.sql.Connection.close()```.
+String password)```) and ```java.sql.Connection.close()``` methods.
 
 :wrench: _.properties_ configuration example
 ```properties
