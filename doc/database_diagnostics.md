@@ -305,7 +305,7 @@ GET 200 http://localhost:8080/owners?lastName=
 :wrench: _.properties_ configuration example
 
 You have to configure two properties to set a threshold to SQL executions.
-The default value for this threshold is 10 sql executions.
+The default value for this threshold is 10 SQL executions.
 
 :wrench: .properties configuration
 ```
