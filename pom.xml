@@ -28,6 +28,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <license.dir>${basedir}</license.dir>
         <currentYear>2021</currentYear>
+        <project.build.outputTimestamp>10</project.build.outputTimestamp>
     </properties>
 
     <build>
@@ -181,7 +182,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-release-plugin</artifactId>
-                        <version>3.0.0-M1</version>
+                        <version>3.0.0-M6</version>
                         <configuration>
                             <allowTimestampedSnapshots>true</allowTimestampedSnapshots> <!--Because of junit4-spring-base-tests-->
                             <autoVersionSubmodules>true</autoVersionSubmodules>
