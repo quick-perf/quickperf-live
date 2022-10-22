@@ -75,42 +75,18 @@ of a generated web service test](./doc/test_generation.md).
 ### Current limitations
 _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 
-⚠ _Today, we do not recommend enabling the tool in a production environment._
+⚠ _Today, we don't recommend enabling the tool in a production environment._
 
 ### Add _QuickPerf live_ dependency
 ```xml
 <dependency>
     <groupId>org.quickperf</groupId>
     <artifactId>quick-perf-live-springboot2</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
 </dependency>
 ```
-Maven central contains a snapshot version. To use it, your projects need to access to Maven central snapshots:
-```xml
-<repositories>
-    <repository>
-        <id>maven-snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        <layout>default</layout>
-        <releases>
-            <enabled>false</enabled>
-        </releases>
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
-    </repository>
-</repositories>
-```
 
-You can also build the library:
-```bash
-git clone https://github.com/quick-perf/quickperf-live.git
-```
-```bash
-mvn clean install
-```
-
-### Enable QuickPerf live
+### Enable _QuickPerf live_
 
 From a _yaml_ file:
 
