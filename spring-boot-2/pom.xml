@@ -6,11 +6,11 @@
     <parent>
         <groupId>org.quickperf</groupId>
         <artifactId>quick-perf-live</artifactId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>quick-perf-live-springboot2</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
 
     <dependencyManagement>
         <dependencies>
