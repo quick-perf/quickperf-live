@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2021-2021 the original author or authors.
+ * Copyright 2021-2022 the original author or authors.
  */
 package org.quickperf.web.spring;
 
@@ -28,7 +28,7 @@ public class CopyHttpServletResponse extends HttpServletResponseWrapper {
 
     private ServletOutputStream outputStream;
     private PrintWriter writer;
-    private ServletOutputStreamCopier copier;
+    private ServletOutputStreamCopier copy;
 
     public CopyHttpServletResponse(javax.servlet.ServletResponse response) {
         super((HttpServletResponse)response);
@@ -42,10 +42,10 @@ public class CopyHttpServletResponse extends HttpServletResponseWrapper {
 
         if (outputStream == null) {
             outputStream = getResponse().getOutputStream();
-            copier = new ServletOutputStreamCopier(outputStream);
+            copy = new ServletOutputStreamCopier(outputStream);
         }
 
-        return copier;
+        return copy;
     }
 
     @Override
@@ -55,8 +55,8 @@ public class CopyHttpServletResponse extends HttpServletResponseWrapper {
         }
 
         if (writer == null) {
-            copier = new ServletOutputStreamCopier(getResponse().getOutputStream());
-            writer = new PrintWriter(new OutputStreamWriter(copier, getResponse().getCharacterEncoding()), true);
+            copy = new ServletOutputStreamCopier(getResponse().getOutputStream());
+            writer = new PrintWriter(new OutputStreamWriter(copy, getResponse().getCharacterEncoding()), true);
         }
 
         return writer;
@@ -67,7 +67,7 @@ public class CopyHttpServletResponse extends HttpServletResponseWrapper {
         if (writer != null) {
             writer.flush();
         } else if (outputStream != null) {
-            copier.flush();
+            copy.flush();
         }
     }
 
@@ -77,8 +77,8 @@ public class CopyHttpServletResponse extends HttpServletResponseWrapper {
     }
 
     private byte[] getContentAsByteArray() {
-        if (copier != null) {
-            return copier.getCopy();
+        if (copy != null) {
+            return copy.getCopy();
         } else {
             return new byte[0];
         }

@@ -27,7 +27,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <license.dir>${basedir}</license.dir>
-        <currentYear>2021</currentYear>
+        <currentYear>2022</currentYear>
         <project.build.outputTimestamp>10</project.build.outputTimestamp>
     </properties>
 
