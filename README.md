@@ -30,7 +30,7 @@
 ### Diagnose performance-related properties
 ```
 GET 200 http://localhost:8080/owners?lastName=
-* [WARNING] N+1 select suspicion - 453 SELECT]
+* [WARNING] N+1 select suspicion - 453 SELECT
 ```
 
 ```
