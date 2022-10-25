@@ -33,6 +33,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.qstd.QuickSqlTestData;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -195,12 +196,14 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         }
 
         if (databaseConfig.isSqlDisplayed()) {
-            infoReport.append(lineSeparator());
-            infoReport.append("* SQL");
-            infoReport.append(lineSeparator());
             String sqlExecutionsAsString = sqlExecutions.toString();
-            String sqlExecutionsWithoutThreeLastLineBreaks = sqlExecutionsAsString.substring(0, sqlExecutionsAsString.length() - 3);
-            infoReport.append(sqlExecutionsWithoutThreeLastLineBreaks);
+            if(!StringUtils.isEmpty(sqlExecutionsAsString)) {
+                infoReport.append(lineSeparator());
+                infoReport.append("* SQL");
+                infoReport.append(lineSeparator());
+                String sqlExecutionsWithoutThreeLastLineBreaks = sqlExecutionsAsString.substring(0, sqlExecutionsAsString.length() - 3);
+                infoReport.append(sqlExecutionsWithoutThreeLastLineBreaks);
+            }
         }
 
         if (databaseConfig.isDatabaseConnectionProfiled()) {
