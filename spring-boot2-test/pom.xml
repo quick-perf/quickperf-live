@@ -17,11 +17,11 @@
     <parent>
         <groupId>org.quickperf</groupId>
         <artifactId>quick-perf-live</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.12-SNAPSHOT</version>
     </parent>
 
     <artifactId>quick-perf-live-springboot2-test</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.12-SNAPSHOT</version>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>org.quickperf</groupId>
             <artifactId>quick-perf-live-springboot2</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <version>0.12-SNAPSHOT</version>
         </dependency>
 
         <dependency>
