@@ -11,7 +11,7 @@
 
     <groupId>org.quickperf</groupId>
     <artifactId>quick-perf-live</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.12-SNAPSHOT</version>
 
     <name>QuickPerf live</name>
     <inceptionYear>2021</inceptionYear>
@@ -26,7 +26,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <license.dir>${basedir}</license.dir>
         <currentYear>2022</currentYear>
-        <project.build.outputTimestamp>1666462622</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1667071399</project.build.outputTimestamp>
     </properties>
 
     <build>

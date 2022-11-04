@@ -82,7 +82,7 @@ _QuickPerf live_ works today for web applications developed with Spring Boot 2.
 <dependency>
     <groupId>org.quickperf</groupId>
     <artifactId>quick-perf-live-springboot2</artifactId>
-    <version>0.1</version>
+    <version>0.11</version>
 </dependency>
 ```
 
