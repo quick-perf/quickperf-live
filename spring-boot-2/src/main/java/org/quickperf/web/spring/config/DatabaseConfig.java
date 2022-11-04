@@ -51,7 +51,6 @@ public class DatabaseConfig {
 	@Value("${quickperf.database.sql.execution.threshold:10}")
 	private int sqlExecutionThreshold;
 
-
 	@ManagedAttribute
 	public boolean isNPlusOneSelectDetected() {
 		return nPlusOneSelectDetected;
@@ -138,4 +137,6 @@ public class DatabaseConfig {
 	public void setSqlExecutionThreshold(int threshold){
 		this.sqlExecutionThreshold = threshold;
 	}
+
+
 }

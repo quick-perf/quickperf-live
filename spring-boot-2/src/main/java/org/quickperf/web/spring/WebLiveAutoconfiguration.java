@@ -14,10 +14,7 @@ package org.quickperf.web.spring;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.quickperf.web.spring.config.DatabaseConfig;
-import org.quickperf.web.spring.config.DatabaseHttpConfig;
-import org.quickperf.web.spring.config.JvmConfig;
-import org.quickperf.web.spring.config.TestGenerationConfig;
+import org.quickperf.web.spring.config.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +31,7 @@ import org.springframework.context.annotation.Import;
         , QuickPerfHttpCallHttpCallWarningLogger.class
         , QuickPerfHttpCallHttpCallInfoLogger.class
         , ExternalHttCallInterceptionConfig.class
+		, UrlConfig.class
 })
 @ConditionalOnProperty(value = "quickperf.enabled")
 public class WebLiveAutoconfiguration {

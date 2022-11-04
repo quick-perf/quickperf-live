@@ -20,10 +20,7 @@ import org.quickperf.sql.SqlRecorderRegistry;
 import org.quickperf.sql.connection.ConnectionListenerRegistry;
 import org.quickperf.sql.select.analysis.SelectAnalysis;
 import org.quickperf.sql.select.analysis.SelectAnalysisExtractor;
-import org.quickperf.web.spring.config.DatabaseConfig;
-import org.quickperf.web.spring.config.DatabaseHttpConfig;
-import org.quickperf.web.spring.config.JvmConfig;
-import org.quickperf.web.spring.config.TestGenerationConfig;
+import org.quickperf.web.spring.config.*;
 import org.quickperf.web.spring.jvm.ByteWatcherSingleThread;
 import org.quickperf.web.spring.jvm.ByteWatcherSingleThreadRegistry;
 import org.quickperf.web.spring.testgeneration.JUnitVersion;
@@ -42,6 +39,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.lang.System.lineSeparator;
 import static org.quickperf.web.spring.QuickPerfBeforeRequestServletFilter.DiagnosticConnectionProfiler;
@@ -68,6 +67,8 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
     private final JvmConfig jvmConfig;
 
+    private final UrlConfig urlConfig;
+
     public QuickPerfAfterRequestServletFilter(DatabaseConfig databaseConfig
                                             , DatabaseHttpConfig databaseHttpConfig
                                             , JvmConfig jvmConfig
@@ -75,7 +76,8 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
                                             , QuickSqlTestData quickSqlTestData
                                             , ApplicationContext context
                                             , Collection<QuickPerfHttpCallWarningWriter> quickPerfHttpCallWarningWriters
-                                            , Collection<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters) {
+                                            , Collection<QuickPerfHttpCallInfoWriter> quickPerfHttpCallInfoWriters
+                                            , UrlConfig urlConfig) {
         this.jvmConfig = jvmConfig;
         this.databaseConfig = databaseConfig;
         this.databaseHttpConfig = databaseHttpConfig;
@@ -83,6 +85,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         this.quickSqlTestData = quickSqlTestData;
         this.quickPerfHttpCallWarningWriters = quickPerfHttpCallWarningWriters;
         this.quickPerfHttpCallInfoWriters = quickPerfHttpCallInfoWriters;
+        this.urlConfig = urlConfig;
         logger.debug(this.getClass().getSimpleName() + "is created");
         this.context = context;
     }
@@ -111,10 +114,11 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
 
         String contentTypeAsString = httpServletResponse.getContentType();
         HttpContentType httpContentType = new HttpContentType(contentTypeAsString);
+        String url = httpServletRequest.getRequestURL().toString();
 
         try {
-            if (httpContentType.isHtml() || httpContentType.isJson() || httpContentType.isText()
-                    || httpContentType.isPdf() || httpContentType.isPdf()) {
+            if ( !urlConfig.checkIfExcluded(url) && (httpContentType.isHtml() || httpContentType.isJson() || httpContentType.isText()
+                    || httpContentType.isPdf() || httpContentType.isPdf()))  {
                 quickPerfProcessing(httpServletRequest, httpServletResponse);
             }
         } catch (Exception e) {
