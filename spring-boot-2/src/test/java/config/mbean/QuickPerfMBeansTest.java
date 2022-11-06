@@ -88,7 +88,8 @@ public class QuickPerfMBeansTest {
                                         , "SqlExecutionTimeDetected"
                                         , "SqlExecutionTimeThresholdInMilliseconds"
                                         , "SqlExecutionDetected"
-                                        , "SqlExecutionThreshold");
+                                        , "SqlExecutionThreshold"
+                                        );
 
                     assertThat(databaseConfigMBeanInfo.getOperations()).isNotNull();
 

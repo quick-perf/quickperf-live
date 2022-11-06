@@ -31,4 +31,6 @@ public interface HttpUrl {
 
     String HUGE_ALLOCATION = "/huge-allocation";
 
+    String EXCLUDED_URL_ACTUATOR = "/actuator/health";
+
 }

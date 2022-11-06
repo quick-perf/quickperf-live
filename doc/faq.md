@@ -18,3 +18,17 @@ spring.jmx.enabled=true
   ```
 
 
+## How to exclude some urls from QuickPerf diagnosis
+It is possible to exclude some urls like this :
+
+* From a _.properties file_
+```
+quickperf.exclude-urls=/manage,/actuator
+```
+* From a _YAML file_
+ ```yaml
+ quickperf:
+   exclude-urls: /manage,/actuator
+  ```
+urls should be comma seperated.
+By default, /actuator is excluded but if you want to add new urls, you should add /actuator path as mentioned above.

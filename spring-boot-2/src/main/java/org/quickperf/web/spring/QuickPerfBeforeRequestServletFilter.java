@@ -20,10 +20,7 @@ import org.quickperf.sql.connection.ConnectionListenerRegistry;
 import org.quickperf.sql.connection.Level;
 import org.quickperf.sql.connection.ProfilingParameters;
 import org.quickperf.sql.connection.stack.*;
-import org.quickperf.web.spring.config.DatabaseConfig;
-import org.quickperf.web.spring.config.DatabaseHttpConfig;
-import org.quickperf.web.spring.config.JvmConfig;
-import org.quickperf.web.spring.config.TestGenerationConfig;
+import org.quickperf.web.spring.config.*;
 import org.quickperf.web.spring.jvm.ByteWatcherSingleThread;
 import org.quickperf.web.spring.jvm.ByteWatcherSingleThreadRegistry;
 import org.springframework.core.Ordered;
@@ -31,11 +28,16 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -53,14 +55,18 @@ public class QuickPerfBeforeRequestServletFilter implements Filter {
 
 	private final TestGenerationConfig testGenerationConfig;
 
+	private final UrlConfig urlConfig;
+
 	public QuickPerfBeforeRequestServletFilter( DatabaseConfig databaseConfig
 											  , DatabaseHttpConfig databaseHttpConfig
 											  , JvmConfig jvmConfig
-			                                  , TestGenerationConfig testGenerationConfig) {
+			                                  , TestGenerationConfig testGenerationConfig
+											  , UrlConfig urlConfig) {
 		this.databaseConfig = databaseConfig;
 		this.databaseHttpConfig = databaseHttpConfig;
 		this.jvmConfig = jvmConfig;
 		this.testGenerationConfig = testGenerationConfig;
+		this.urlConfig = urlConfig;
 		logger.debug(this.getClass().getSimpleName() + "is created");
 	}
 
@@ -72,7 +78,10 @@ public class QuickPerfBeforeRequestServletFilter implements Filter {
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
 		HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-		if (!httpServletResponse.isCommitted()) {
+		HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+		String url = httpServletRequest.getRequestURL().toString();
+
+		if (!httpServletResponse.isCommitted() && !urlConfig.checkIfExcluded(url) ) {
 			try {
 				quickPerfProcessing();
 			} catch (Exception e) {

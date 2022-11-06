@@ -20,6 +20,7 @@ import org.quickperf.spring.springboottest.RestTemplateConfig;
 import org.quickperf.web.spring.config.DatabaseConfig;
 import org.quickperf.web.spring.config.DatabaseHttpConfig;
 import org.quickperf.web.spring.config.JvmConfig;
+import org.quickperf.web.spring.config.UrlConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -69,6 +70,9 @@ public abstract class TestQuickPerfMessages {
 
     @Autowired
     private OtherApplicationPort otherApplicationPort;
+
+    @Autowired
+    protected UrlConfig urlConfig;
 
     protected ConfigurableApplicationContext applicationContext;
 
