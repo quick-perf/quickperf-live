@@ -38,7 +38,17 @@ public class WebLiveAutoconfiguration {
 
 	private static final Log LOGGER = LogFactory.getLog(WebLiveAutoconfiguration.class);
 
+	private final UrlConfig urlConfig;
+
+
 	{
 		LOGGER.info("Quickperf Live is enabled");
 	}
+
+	public WebLiveAutoconfiguration(UrlConfig urlConfig) {
+		this.urlConfig = urlConfig;
+		LOGGER.info("Quickperf excluded urls: "  + urlConfig.getExcludedUrls());
+	}
+
+
 }
