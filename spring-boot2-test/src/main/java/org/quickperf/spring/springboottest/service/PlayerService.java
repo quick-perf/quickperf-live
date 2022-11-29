@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,12 +35,17 @@ public class PlayerService {
 
     private final OtherApplicationPort otherApplicationPort;
 
+    private final EntityManager entityManager;
+
+
     public PlayerService(PlayerRepository playerRepository
                        , RestTemplate restTemplate
-                       , OtherApplicationPort otherApplicationPort) {
+                       , OtherApplicationPort otherApplicationPort
+                       , EntityManager entityManager) {
         this.playerRepository = playerRepository;
         this.restTemplate = restTemplate;
         this.otherApplicationPort = otherApplicationPort;
+        this.entityManager = entityManager;
     }
 
     @Transactional(readOnly = true)
@@ -73,6 +80,17 @@ public class PlayerService {
     public Player performSynchronousHttpCallBetweenConnectionGottenAndClosed() {
         performSynchronousHttpCall();
         return playerRepository.findById(1L).get();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Player> findPlayerByUnboundParamsQuery(String lastName) {
+        Query q = entityManager.createNativeQuery("SELECT * FROM Player p where p.lastName like '%" + lastName+"%'" );
+        List<Player> players = q.getResultList();
+        return players;
+    }
+    @Transactional(readOnly = true)
+    public List<Player> findPlayerByBindedParamsQuery(String lastName) {
+        return playerRepository.findByLastName(lastName);
     }
 
 }

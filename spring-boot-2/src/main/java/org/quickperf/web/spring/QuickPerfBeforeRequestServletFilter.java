@@ -142,7 +142,7 @@ public class QuickPerfBeforeRequestServletFilter implements Filter {
 
 	private void quickPerfProcessing() {
 
-		if(databaseConfig.isSqlDisplayed() || databaseConfig.isNPlusOneSelectDetected() || databaseConfig.isSqlExecutionDetected()) {
+		if(databaseConfig.isSqlDisplayed() || databaseConfig.isNPlusOneSelectDetected() || databaseConfig.isSqlExecutionDetected() || databaseConfig.isSqlWithoutBindParamDetected()) {
 			SqlRecorderRegistry.INSTANCE.register(new SqlExecutionsRecorder());
 		}
 

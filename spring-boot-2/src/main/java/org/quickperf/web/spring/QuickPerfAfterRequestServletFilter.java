@@ -15,8 +15,10 @@ package org.quickperf.web.spring;
 import net.ttddyy.dsproxy.QueryInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.quickperf.measure.BooleanMeasure;
 import org.quickperf.sql.SqlExecutions;
 import org.quickperf.sql.SqlRecorderRegistry;
+import org.quickperf.sql.bindparams.AllParametersAreBoundExtractor;
 import org.quickperf.sql.connection.ConnectionListenerRegistry;
 import org.quickperf.sql.select.analysis.SelectAnalysis;
 import org.quickperf.sql.select.analysis.SelectAnalysisExtractor;
@@ -185,7 +187,8 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         SqlExecutionsRecorder sqlExecutionsRecorder = SqlRecorderRegistry.INSTANCE.getSqlRecorderOfType(SqlExecutionsRecorder.class);
 
         SqlExecutions sqlExecutions = null;
-        if (databaseConfig.isSqlDisplayed() || databaseConfig.isNPlusOneSelectDetected() || databaseConfig.isSqlExecutionDetected() ) {
+        if (databaseConfig.isSqlDisplayed() || databaseConfig.isNPlusOneSelectDetected() || databaseConfig.isSqlExecutionDetected()
+            || databaseConfig.isSqlWithoutBindParamDetected()) {
             sqlExecutions = sqlExecutionsRecorder.findRecord(null);
         }
 
@@ -257,6 +260,13 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
                 warnReport.append(lineSeparator() + "\t* [WARNING] You have reached your SQL executions threshold" + " : " + numberOfExecutions + " > " + sqlExecutionThreshold);
             }
 
+        }
+
+        if(databaseConfig.isSqlWithoutBindParamDetected()) {
+            BooleanMeasure hasBoundParams = AllParametersAreBoundExtractor.INSTANCE.extractPerfMeasureFrom(sqlExecutions);
+            if ( !hasBoundParams.getValue() ) {
+                warnReport.append(lineSeparator() + "\t* [WARNING] Some of your SQL queries does not use bound parameters." );
+            }
         }
 
         detectPerfAntiPatterns(externalHttpCalls, warnReport);

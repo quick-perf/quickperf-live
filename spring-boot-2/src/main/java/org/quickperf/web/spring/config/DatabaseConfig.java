@@ -51,6 +51,9 @@ public class DatabaseConfig {
 	@Value("${quickperf.database.sql.execution.threshold:10}")
 	private int sqlExecutionThreshold;
 
+	@Value("${quickperf.database.sql.without-bind-param.detected:false}")
+	private boolean sqlWithoutBindParamDetected;
+
 	@ManagedAttribute
 	public boolean isNPlusOneSelectDetected() {
 		return nPlusOneSelectDetected;
@@ -138,5 +141,13 @@ public class DatabaseConfig {
 		this.sqlExecutionThreshold = threshold;
 	}
 
+	@ManagedAttribute
+	public boolean isSqlWithoutBindParamDetected() {
+		return sqlWithoutBindParamDetected;
+	}
 
+	@ManagedOperation
+	public void setSqlWithoutBindParamDetected(boolean sqlWithoutBindParamDetected) {
+		this.sqlWithoutBindParamDetected = sqlWithoutBindParamDetected;
+	}
 }
