@@ -353,9 +353,10 @@ GET 200 http://localhost:8080/json-with-n-plus-one-select
 * [WARNING] You have reached your SQL executions threshold : 11 > 10
 ```
 
-### Missing binded parameters queries warning
+### Missing bind parameters in queries
 
-When passing parameters to queries, the generated query should not have the values but a generic binded parameter. This will allow the database to avoid parsing and executing the same query over and over again. QuickPerf-live can help you detect unbound parameters queries. All you need to do is to activate the following property  :
+The use of bind parameters in queries is generally a good practice for [security and performance reasons](https://github.com/quick-perf/doc/wiki/@DisableQueriesWithoutBindParameters). 
+QuickPerf live can detect queries without bind parameters with the following property:
 
 :wrench: _.properties_ configuration example
 
@@ -369,7 +370,8 @@ quickperf.database.sql.without-bind-param.detected=true
 quickperf:
   database:
     sql:
-      without-bind-param: true
+      without-bind-param: 
+        detected: true
 ```
 
 :wrench: MBean configuration
@@ -388,5 +390,5 @@ QuickPerf
 Hibernate: SELECT * FROM Player p where p.lastName like '%ronaldo%'
 2022-12-14 13:59:19.776  WARN 13632 --- [qtp640585435-24] s.QuickPerfHttpCallHttpCallWarningLogger : 
 GET 200 http://localhost:8080/player/unbounded-params?name=ronaldo
-	* [WARNING] Some of your SQL queries does not use bound parameters.
+	* [WARNING] Some of your SQL queries don't use bind parameters.
 ```

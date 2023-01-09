@@ -36,7 +36,7 @@ public class SqlWithoutBindParametersWarningRaisedTest extends TestQuickPerfMess
         TestableQuickPerfMessage quickPerfWarnings = warningInterceptor.getWarnings();
 
         assertThat(quickPerfWarnings)
-                .hasAMessageContaining("[WARNING] Some of your SQL queries does not use bound parameters");
+                .hasAMessageContaining("[WARNING] Some of your SQL queries don't use bind parameters.");
 
     }
 

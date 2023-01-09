@@ -265,7 +265,7 @@ public class QuickPerfAfterRequestServletFilter implements Filter {
         if(databaseConfig.isSqlWithoutBindParamDetected()) {
             BooleanMeasure hasBoundParams = AllParametersAreBoundExtractor.INSTANCE.extractPerfMeasureFrom(sqlExecutions);
             if ( !hasBoundParams.getValue() ) {
-                warnReport.append(lineSeparator() + "\t* [WARNING] Some of your SQL queries does not use bound parameters." );
+                warnReport.append(lineSeparator() + "\t* [WARNING] Some of your SQL queries don't use bind parameters." );
             }
         }
 
