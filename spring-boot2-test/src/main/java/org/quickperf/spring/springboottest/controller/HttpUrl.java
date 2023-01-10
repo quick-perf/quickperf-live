@@ -33,4 +33,8 @@ public interface HttpUrl {
 
     String EXCLUDED_URL_ACTUATOR = "/actuator/health";
 
+    String FIND_PLAYER_WITH_BIND_PARAMS= "/player/bound-params";
+
+    String FIND_PLAYER_WITH_UNBOUNDED_PARAMS= "/player/unbounded-params";
+
 }

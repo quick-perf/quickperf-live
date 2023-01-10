@@ -89,6 +89,7 @@ public class QuickPerfMBeansTest {
                                         , "SqlExecutionTimeThresholdInMilliseconds"
                                         , "SqlExecutionDetected"
                                         , "SqlExecutionThreshold"
+                                        , "SqlWithoutBindParamDetected"
                                         );
 
                     assertThat(databaseConfigMBeanInfo.getOperations()).isNotNull();

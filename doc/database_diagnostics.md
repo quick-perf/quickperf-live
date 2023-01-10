@@ -352,3 +352,43 @@ Hibernate: select team0_.id as id1_1_0_, team0_.name as name2_1_0_ from team tea
 GET 200 http://localhost:8080/json-with-n-plus-one-select
 * [WARNING] You have reached your SQL executions threshold : 11 > 10
 ```
+
+### Missing bind parameters in queries
+
+The use of bind parameters in queries is generally a good practice for [security and performance reasons](https://github.com/quick-perf/doc/wiki/@DisableQueriesWithoutBindParameters). 
+QuickPerf live can detect queries without bind parameters with the following property:
+
+:wrench: _.properties_ configuration example
+
+```
+quickperf.database.sql.without-bind-param.detected=true
+```
+
+:wrench: YAML configuration example
+
+```yaml
+quickperf:
+  database:
+    sql:
+      without-bind-param: 
+        detected: true
+```
+
+:wrench: MBean configuration
+
+```
+QuickPerf
+  -- Database
+      -- Operations
+           -- boolean isSqlWithoutBindParamDetected()
+           -- void setSqlWithoutBindParamDetected(boolean)
+```
+
+:mag_right: Log example
+
+```
+Hibernate: SELECT * FROM Player p where p.lastName like '%ronaldo%'
+2022-12-14 13:59:19.776  WARN 13632 --- [qtp640585435-24] s.QuickPerfHttpCallHttpCallWarningLogger : 
+GET 200 http://localhost:8080/player/unbounded-params?name=ronaldo
+	* [WARNING] Some of your SQL queries don't use bind parameters.
+```
